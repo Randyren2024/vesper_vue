@@ -1,0 +1,167 @@
+/* Vesper AgriTech 全局样式 */
+
+:root {
+  /* Vesper 字体 */
+  --vesper-font: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  
+  /* Vesper 品牌色 */
+  --vesper-primary: #2e7d32;
+  --vesper-primary-light: #4caf50;
+  --vesper-primary-dark: #1b5e20;
+  --vesper-secondary: #2196f3;
+  --vesper-accent: #ff9800;
+  
+  /* 中性色 */
+  --vesper-text: #2c3e50;
+  --vesper-text-secondary: #666;
+  --vesper-border: #e8e8e8;
+  --vesper-bg: #f8f9fa;
+  --vesper-card-bg: #ffffff;
+  
+  /* 渐变 */
+  --gradient-primary: linear-gradient(135deg, #2e7d32, #4caf50);
+  --gradient-secondary: linear-gradient(135deg, #2196f3, #1976d2);
+  --gradient-accent: linear-gradient(135deg, #ff9800, #f57c00);
+  
+  /* 阴影 */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  
+  /* 圆角 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* 动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-out;
+}
+
+/* 工具类 */
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Vesper 品牌按钮 */
+.btn-vesper {
+  background: var(--gradient-primary);
+  border: none;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-vesper:hover {
+  background: var(--vesper-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-vesper-outline {
+  border: 2px solid var(--vesper-primary);
+  color: var(--vesper-primary);
+  background: transparent;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-vesper-outline:hover {
+  background: var(--vesper-primary);
+  color: white;
+  border-color: var(--vesper-primary);
+}
+
+/* 响应式工具类 */
+@media (max-width: 768px) {
+  .mobile-hidden {
+    display: none !important;
+  }
+  
+  .mobile-center {
+    text-align: center !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .desktop-hidden {
+    display: none !important;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  a {
+    color: black !important;
+    text-decoration: none !important;
+  }
+}
