@@ -4,27 +4,30 @@
     <Header />
     
     <!-- Hero Banner -->
-    <section class="hero-section">
-      <div class="hero-content">
+    <section class="hero-section" v-motion-fade-visible :delay="100">
+      <div class="hero-content" v-motion-slide-visible-bottom :delay="200">
         <h1 class="hero-title">Solutions</h1>
         <p class="hero-subtitle">Comprehensive agricultural technology solutions for modern farming</p>
       </div>
     </section>
 
     <!-- Solutions Grid -->
-    <section class="solutions-section">
+    <section class="solutions-section" v-motion-fade-visible :delay="300">
       <div class="solutions-container">
-        <div v-for="category in categories" :key="category.id" class="solution-category">
-          <div class="category-header">
+        <div v-for="(category, catIndex) in categories" :key="category.id" class="solution-category">
+          <div class="category-header" v-motion-slide-visible-bottom :delay="300">
             <h2 class="category-title">{{ category.name }}</h2>
             <p class="category-description">{{ category.description }}</p>
           </div>
           <div class="solutions-grid">
             <a-card 
-              v-for="product in getProductsByCategory(category.id)" 
+              v-for="(product, prodIndex) in getProductsByCategory(category.id)" 
               :key="product.id" 
               class="solution-card" 
               hoverable
+              v-motion
+              :initial="{ opacity: 0, y: 30 }"
+              :enter="{ opacity: 1, y: 0, transition: { delay: catIndex * 100 + prodIndex * 50 + 400 } }"
               @click="$router.push(`/product/${product.id}`)"
             >
               <template #cover>
@@ -44,8 +47,8 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section">
-      <div class="cta-container">
+    <section class="cta-section" v-motion-fade-visible :delay="600">
+      <div class="cta-container" v-motion-slide-visible-bottom :delay="600">
         <h2>Need a Custom Solution?</h2>
         <p>Contact us to discuss your specific agricultural needs</p>
         <a-button type="primary" size="large" @click="$router.push('/contact')">
@@ -54,49 +57,7 @@
       </div>
     </section>
 
-    <!-- 页脚 -->
-    <a-layout-footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <div class="footer-logo">
-            <img v-if="!footerLogoError" src="/logo.webp" alt="Vesper AgriTech" class="footer-logo-image" @error="handleFooterLogoError" />
-            <div v-else class="footer-logo-fallback">
-              <span class="footer-logo-text">VESPER</span>
-              <span class="footer-logo-subtext">AgriTech</span>
-            </div>
-          </div>
-          <p class="footer-description">
-            Committed to advancing agricultural modernization through technological innovation
-          </p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Quick Links</h3>
-          <a @click="$router.push('/products')" class="footer-link">Products</a>
-          <a @click="$router.push('/about_us')" class="footer-link">About Us</a>
-          <a @click="$router.push('/contact')" class="footer-link">Contact</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Legal</h3>
-          <a href="/privacy-policy" class="footer-link">Privacy Policy</a>
-          <a href="/terms-conditions" class="footer-link">Terms & Conditions</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Contact Us</h3>
-          <p class="footer-contact">market@vesperinno.com</p>
-          <p class="footer-contact">+61 408 518 918</p>
-          <p class="footer-contact">Australia</p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Follow Us</h3>
-          <a href="https://www.linkedin.com/in/alan-gan-vesperinno/" target="_blank" class="footer-link">
-            <LinkedinOutlined /> LinkedIn
-          </a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>Copyright© {{ currentYear }} Shenzhen Vesper Inno Technology Co., Ltd All Rights Reserved</p>
-      </div>
-    </a-layout-footer>
+    <Footer />
   </div>
 </template>
 
@@ -104,6 +65,7 @@
 import { ref } from 'vue'
 import { LinkedinOutlined } from '@ant-design/icons-vue'
 import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
 import { categories, getProductsByCategory } from '../data/products'
 
 const current = ref<string[]>(['solutions'])
@@ -129,7 +91,7 @@ const openWhatsApp = () => {
 
 <style scoped>
 .solutions-page {
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans SC', 'Inter', sans-serif;
 }
 
 .header {

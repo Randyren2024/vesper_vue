@@ -48,8 +48,20 @@ const router = createRouter({
       path: '/terms-conditions',
       name: 'terms-conditions',
       component: () => import('../views/TermsView.vue')
+    },
+    {
+      path: '/support',
+      name: 'support',
+      component: () => import('../views/SupportView.vue')
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { top: 0 }
+    }
+  }
 })
 
 export default router

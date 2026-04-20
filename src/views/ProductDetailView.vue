@@ -15,7 +15,7 @@
     <!-- Product Hero -->
     <section class="product-hero">
       <div class="product-hero-container">
-        <div class="product-image-section">
+        <div class="product-image-section" v-motion-slide-visible-left :delay="100">
           <div class="product-main-image">
             <img :src="product.image" :alt="product.name" />
           </div>
@@ -26,7 +26,7 @@
           </div>
         </div>
         
-        <div class="product-info-section">
+        <div class="product-info-section" v-motion-slide-visible-right :delay="200">
           <div class="product-category-link">
             <a @click="$router.push('/products-solutions')">{{ product.categoryName }}</a>
           </div>
@@ -58,11 +58,18 @@
     </section>
 
     <!-- Applications / Use Cases -->
-    <section v-if="product.applications && product.applications.length" class="applications-section">
+    <section v-if="product.applications && product.applications.length" class="applications-section" v-motion-fade-visible :delay="300">
       <div class="section-container">
-        <h2 class="section-title">Applications</h2>
+        <h2 class="section-title" v-motion-slide-visible-bottom :delay="300">Applications</h2>
         <div class="applications-grid">
-          <div v-for="app in product.applications" :key="app" class="application-item">
+          <div 
+            v-for="(app, index) in product.applications" 
+            :key="app" 
+            class="application-item"
+            v-motion
+            :initial="{ opacity: 0, scale: 0.8 }"
+            :enter="{ opacity: 1, scale: 1, transition: { delay: index * 100 + 400 } }"
+          >
             <AppstoreOutlined class="app-icon" />
             <span>{{ app }}</span>
           </div>
@@ -71,11 +78,18 @@
     </section>
 
     <!-- Features Section -->
-    <section class="features-section">
+    <section class="features-section" v-motion-fade-visible :delay="400">
       <div class="section-container">
-        <h2 class="section-title">Product Features</h2>
+        <h2 class="section-title" v-motion-slide-visible-bottom :delay="400">Product Features</h2>
         <div class="features-grid">
-          <div v-for="(feature, index) in product.features" :key="index" class="feature-item">
+          <div 
+            v-for="(feature, index) in product.features" 
+            :key="index" 
+            class="feature-item"
+            v-motion
+            :initial="{ opacity: 0, x: -20 }"
+            :enter="{ opacity: 1, x: 0, transition: { delay: index * 100 + 500 } }"
+          >
             <div class="feature-icon"><CheckCircleOutlined /></div>
             <div class="feature-text">{{ feature }}</div>
           </div>
@@ -84,9 +98,9 @@
     </section>
 
     <!-- Grouped Specifications -->
-    <section class="specs-section" id="specifications">
+    <section class="specs-section" id="specifications" v-motion-fade-visible :delay="500">
       <div class="section-container">
-        <h2 class="section-title">Technical Specifications</h2>
+        <h2 class="section-title" v-motion-slide-visible-bottom :delay="500">Technical Specifications</h2>
         
         <!-- If product has grouped specs -->
         <div v-if="product.specsGroups && product.specsGroups.length" class="specs-groups">
@@ -168,50 +182,14 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <a-layout-footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <div class="footer-logo">
-            <img v-if="!footerLogoError" src="/logo.webp" alt="Vesper AgriTech" class="footer-logo-image" @error="handleFooterLogoError" />
-            <div v-else class="footer-logo-fallback">
-              <span class="footer-logo-text">VESPER</span>
-              <span class="footer-logo-subtext">AgriTech</span>
-            </div>
-          </div>
-          <p class="footer-description">
-            Committed to advancing agricultural modernization through technological innovation
-          </p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Quick Links</h3>
-          <a @click="$router.push('/products')" class="footer-link">Products</a>
-          <a @click="$router.push('/solutions')" class="footer-link">Solutions</a>
-          <a @click="$router.push('/about_us')" class="footer-link">About Us</a>
-          <a @click="$router.push('/contact')" class="footer-link">Contact</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Contact Us</h3>
-          <p class="footer-contact">market@vesperinno.com</p>
-          <p class="footer-contact">+61 408 518 918</p>
-          <p class="footer-contact">Australia</p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Follow Us</h3>
-          <a href="https://www.linkedin.com/in/alan-gan-vesperinno/" target="_blank" class="footer-link"><LinkedinOutlined /> LinkedIn</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>Copyright© {{ currentYear }} Shenzhen Vesper Inno Technology Co., Ltd All Rights Reserved</p>
-      </div>
-    </a-layout-footer>
+    <Footer />
   </div>
 
   <!-- Not Found -->
   <div v-else class="not-found">
     <a-result status="404" title="Product Not Found" sub-title="Sorry, the product you are looking for does not exist.">
       <template #extra>
-        <a-button type="primary" @click="$router.push('/products')">Back to Products</a-button>
+        <a-button type="primary" @click="$router.push('/products-solutions')">Back to Products & Solutions</a-button>
       </template>
     </a-result>
   </div>
@@ -222,6 +200,7 @@ import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { CheckCircleOutlined, MessageOutlined, TableOutlined, AppstoreOutlined, LinkedinOutlined, CalendarOutlined } from '@ant-design/icons-vue'
 import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
 import { products, getProductById, getProductsByCategory, type Product } from '../data/products'
 
 const route = useRoute()
@@ -280,7 +259,7 @@ const scrollToSpecs = () => {
 </script>
 
 <style scoped>
-.product-detail-page { font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif; background: #f8f9fa; }
+.product-detail-page { font-family: 'Noto Sans', 'Noto Sans SC', 'Inter', sans-serif; background: #f8f9fa; line-height: 1.7; }
 
 .breadcrumb { max-width: 1200px; margin: 0 auto; padding: 16px 20px; }
 

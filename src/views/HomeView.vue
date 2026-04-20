@@ -23,13 +23,13 @@
     
     <!-- 英雄区域 - 产品轮播图 -->
     <section class="hero-section">
-      <div class="hero-content">
-        <h1 class="hero-title">Smart Agriculture, Precision Future</h1>
-        <p class="hero-subtitle">
+      <div class="hero-content" v-motion-fade-visible>
+        <h1 class="hero-title" v-motion-slide-visible-bottom :delay="100">Smart Agriculture, Precision Future</h1>
+        <p class="hero-subtitle" v-motion-slide-visible-bottom :delay="200">
           Vesper AgriTech provides advanced agricultural technology solutions,<br>
           enhancing farming efficiency and sustainability through intelligent technology
         </p>
-        <div class="hero-actions">
+        <div class="hero-actions" v-motion-slide-visible-bottom :delay="300">
           <a-button type="primary" size="large" class="primary-btn" @click="$router.push('/products-solutions')">Explore Solutions</a-button>
           <a-button size="large" class="secondary-btn" @click="$router.push('/products-solutions')">View Products</a-button>
         </div>
@@ -117,17 +117,20 @@
     </section>
 
     <!-- 解决方案 -->
-    <section class="solutions-section">
-      <div class="section-header">
+    <section class="solutions-section" v-motion-fade-visible :delay="400">
+      <div class="section-header" v-motion-slide-visible-bottom :delay="400">
         <h2 class="section-title">Products & Solutions</h2>
         <p class="section-subtitle">Comprehensive technical support for modern agriculture</p>
       </div>
       <div class="solutions-grid">
         <a-card 
-          v-for="category in displayedCategories" 
+          v-for="(category, index) in displayedCategories" 
           :key="category.id" 
           class="solution-card" 
           hoverable
+          v-motion
+          :initial="{ opacity: 0, y: 50 }"
+          :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 500 } }"
           @click="$router.push(`/products?category=${category.id}`)"
         >
           <template #cover>
@@ -149,107 +152,63 @@
     </section>
 
 <!-- 产品展示 -->
-    <section class="products-section">
-      <div class="section-header">
+    <section class="products-section" v-motion-fade-visible :delay="600">
+      <div class="section-header" v-motion-slide-visible-bottom :delay="600">
         <h2 class="section-title">Featured Products</h2>
         <p class="section-subtitle">Leading agricultural technology equipment</p>
       </div>
       <div class="products-grid">
          <a-card 
-           v-for="product in displayedProducts" 
-           :key="product.id" 
-           class="product-card" 
-           hoverable
-           @click="$router.push(`/product/${product.id}`)"
-         >
-           <template #cover>
-             <div :class="`product-cover ${product.id}`">
-               <img 
-                 :src="product.image" 
-                 :alt="product.name" 
-                 @error="(e) => e.target.src = images.fallback.products.sm200"
-               />
-             </div>
-           </template>
-           <a-card-meta :title="product.name">
-             <template #description>
-               {{ product.description }}
-             </template>
-           </a-card-meta>
-           <div class="product-actions">
-             <a-button type="primary" size="small" @click="$router.push(`/product/${product.id}`)">Learn More</a-button>
-             <a-button size="small" @click="openWhatsAppForProduct(product.name)">Get Quote</a-button>
-           </div>
-         </a-card>
+            v-for="(product, index) in displayedProducts" 
+            :key="product.id" 
+            class="product-card" 
+            hoverable
+            v-motion
+            :initial="{ opacity: 0, scale: 0.9 }"
+            :enter="{ opacity: 1, scale: 1, transition: { delay: index * 100 + 700 } }"
+            @click="$router.push(`/product/${product.id}`)"
+          >
+            <template #cover>
+              <div :class="`product-cover ${product.id}`">
+                <img 
+                  :src="product.image" 
+                  :alt="product.name" 
+                  @error="(e) => e.target.src = images.fallback.products.sm200"
+                />
+              </div>
+            </template>
+            <a-card-meta :title="product.name">
+              <template #description>
+                {{ product.description }}
+              </template>
+            </a-card-meta>
+            <div class="product-actions">
+              <a-button type="primary" size="small" @click="$router.push(`/product/${product.id}`)">Learn More</a-button>
+              <a-button size="small" @click="openWhatsAppForProduct(product.name)">Get Quote</a-button>
+            </div>
+          </a-card>
       </div>
     </section>
 
     <!-- 统计数据 -->
-    <section class="stats-section">
+    <section class="stats-section" v-motion-fade-visible :delay="800">
       <div class="stats-container">
-        <div class="stat-item">
-          <div class="stat-number">10+</div>
-          <div class="stat-label">Years Experience</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">Multiple</div>
-          <div class="stat-label">Product Lines</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">Australia</div>
-          <div class="stat-label">Market Presence</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number">Global</div>
-          <div class="stat-label">Investment Partners</div>
+        <div 
+          v-for="(stat, index) in statItems" 
+          :key="index" 
+          class="stat-item"
+          v-motion
+          :initial="{ opacity: 0, y: 30 }"
+          :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 900 } }"
+        >
+          <div class="stat-number">{{ stat.number }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
         </div>
       </div>
     </section>
 
     <!-- 页脚 -->
-    <a-layout-footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <div class="footer-logo">
-            <img 
-              src="/logo.webp" 
-              alt="Vesper AgriTech" 
-              class="footer-logo-image"
-              @error="handleFooterLogoError"
-            />
-          </div>
-          <p class="footer-description">
-            Committed to advancing agricultural modernization through technological innovation,<br>
-            achieving sustainable agricultural production
-          </p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Solutions</h3>
-          <a href="#" class="footer-link">Precision Agriculture</a>
-          <a href="#" class="footer-link">Agricultural Robots</a>
-          <a href="#" class="footer-link">IoT Monitoring</a>
-          <a href="#" class="footer-link">Data Analytics</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Legal</h3>
-          <a href="/privacy-policy" class="footer-link">Privacy Policy</a>
-          <a href="/terms-conditions" class="footer-link">Terms & Conditions</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Contact Us</h3>
-          <p class="footer-contact">📧 market@vesperinno.com</p>
-          <p class="footer-contact">📞 +61 408 518 918</p>
-          <p class="footer-contact">📍 Australia</p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Follow Us</h3>
-          <a href="https://www.linkedin.com/in/alan-gan-vesperinno/" target="_blank" class="footer-link"><LinkedinOutlined /> LinkedIn</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>Copyright© {{ copyrightYear }} Shenzhen Vesper Inno Technology Co., Ltd All Rights Reserved</p>
-      </div>
-    </a-layout-footer>
+    <Footer />
   </div>
 </template>
 
@@ -257,12 +216,20 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { LinkedinOutlined } from '@ant-design/icons-vue'
 import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
 import { categories, products, getBestSellers } from '../data/products'
 
 const current = ref<string[]>(['home'])
 
 const displayedCategories = categories
 const displayedProducts = getBestSellers().slice(0, 3)
+
+const statItems = [
+  { number: '10+', label: 'Years Experience' },
+  { number: 'Multiple', label: 'Product Lines' },
+  { number: 'Australia', label: 'Market Presence' },
+  { number: 'Global', label: 'Investment Partners' }
+]
 
 const categoryImages: Record<string, string> = {
   'precision-agriculture': '/images/pexels-nc-farm-bureau-mark-26256448.webp',
@@ -423,7 +390,7 @@ onUnmounted(() => {
 
 <style scoped>
 .home {
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans SC', 'Inter', sans-serif;
 }
 
 /* 导航栏样式 - 改进响应式 */

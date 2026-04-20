@@ -1,53 +1,7 @@
 <template>
   <div class="products-solutions-page">
     <!-- 导航栏 -->
-    <a-layout-header class="header">
-      <div class="header-content">
-        <div class="logo" @click="$router.push('/')">
-          <img src="/logo.webp" alt="Vesper AgriTech" class="logo-image" @error="handleLogoError" />
-        </div>
-        
-        <a-menu v-model:selectedKeys="currentKeys" mode="horizontal" class="nav-menu">
-          <a-menu-item key="home" @click="$router.push('/')">Home</a-menu-item>
-          
-          <!-- Products & Solutions Dropdown -->
-          <a-sub-menu key="products-solutions" title="Products & Solutions">
-            <template #title>
-              <span class="dropdown-title">
-                Products & Solutions
-                <DownOutlined class="dropdown-icon" />
-              </span>
-            </template>
-            <a-menu-item-group>
-              <a-menu-item-group-title>Categories</a-menu-item-group-title>
-              <a-menu-item 
-                v-for="category in categories" 
-                :key="category.id"
-                @click="selectCategory(category.id)"
-              >
-                <div class="category-item">
-                  <component :is="categoryIcons[category.icon]" class="category-icon" />
-                  <span>{{ category.name }}</span>
-                </div>
-              </a-menu-item>
-              <a-menu-divider />
-              <a-menu-item @click="$router.push('/products-solutions')">
-                <span class="view-all">View All →</span>
-              </a-menu-item>
-            </a-menu-item-group>
-          </a-sub-menu>
-          
-          <a-menu-item key="about" @click="$router.push('/about_us')">About</a-menu-item>
-          <a-menu-item key="contact" @click="$router.push('/contact')">Contact</a-menu-item>
-        </a-menu>
-        
-        <div class="header-actions">
-          <a-button type="primary" class="demo-btn" @click="openWhatsApp">
-            Request Demo
-          </a-button>
-        </div>
-      </div>
-    </a-layout-header>
+    <Header />
 
     <!-- Hero Banner -->
     <section class="hero-section">
@@ -86,10 +40,13 @@
       <div class="products-container">
         <div class="products-grid">
           <a-card 
-            v-for="product in filteredProducts" 
+            v-for="(product, index) in filteredProducts" 
             :key="product.id" 
             class="product-card" 
             hoverable
+            v-motion
+            :initial="{ opacity: 0, y: 50 }"
+            :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 } }"
             @click="$router.push(`/product/${product.id}`)"
           >
             <template #cover>
@@ -123,7 +80,7 @@
     </section>
 
     <!-- Call to Action -->
-    <section class="cta-section">
+    <section class="cta-section" v-show="filteredProducts.length > 0">
       <div class="cta-content">
         <h2>Ready to Transform Your Farming?</h2>
         <p>Contact us today for a personalized demonstration or quote</p>
@@ -134,51 +91,27 @@
       </div>
     </section>
 
-    <!-- 页脚 -->
-    <a-layout-footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <div class="footer-logo">
-            <img src="/logo.webp" alt="Vesper AgriTech" class="footer-logo-image" @error="handleFooterLogoError" />
-          </div>
-          <p class="footer-description">
-            Committed to advancing agricultural modernization through technological innovation
-          </p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Quick Links</h3>
-          <a @click="$router.push('/products-solutions')" class="footer-link">Products & Solutions</a>
-          <a @click="$router.push('/about_us')" class="footer-link">About Us</a>
-          <a @click="$router.push('/contact')" class="footer-link">Contact</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Legal</h3>
-          <a href="/privacy-policy" class="footer-link">Privacy Policy</a>
-          <a href="/terms-conditions" class="footer-link">Terms & Conditions</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Contact Us</h3>
-          <p class="footer-contact">market@vesperinno.com</p>
-          <p class="footer-contact">+61 408 518 918</p>
-          <p class="footer-contact">Australia</p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Follow Us</h3>
-          <a href="https://www.linkedin.com/in/alan-gan-vesperinno/" target="_blank" class="footer-link">LinkedIn</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>Copyright© {{ currentYear }} Shenzhen Vesper Inno Technology Co., Ltd All Rights Reserved</p>
-      </div>
-    </a-layout-footer>
+    <!-- Empty State - Fallback if no products -->
+    <section v-if="filteredProducts.length === 0" class="empty-state">
+      <a-empty description="No products found in this category">
+        <a-button type="primary" @click="selectedCategory = 'all'">View All Products</a-button>
+      </a-empty>
+    </section>
+
+    <!-- Always show Footer -->
+    <Footer />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import * as Icons from '@ant-design/icons-vue'
+import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
 import { categories, products, type Product } from '../data/products'
 
+const route = useRoute()
 const currentKeys = ref<string[]>(['products-solutions'])
 const selectedCategory = ref('all')
 const currentYear = new Date().getFullYear()
@@ -187,8 +120,24 @@ const categoryIcons: Record<string, any> = Icons
 
 const displayCategories = categories
 
+onMounted(() => {
+  const categoryParam = route.query.category as string
+  if (categoryParam && categories.some(c => c.id === categoryParam)) {
+    selectedCategory.value = categoryParam
+  }
+  window.scrollTo(0, 0)
+})
+
+watch(() => route.query.category, (newCategory) => {
+  if (newCategory && categories.some(c => c.id === newCategory)) {
+    selectedCategory.value = newCategory
+    window.scrollTo(0, 0)
+  }
+})
+
 const selectCategory = (categoryId: string) => {
   selectedCategory.value = categoryId
+  window.scrollTo(0, 0)
 }
 
 const filteredProducts = computed(() => {
@@ -229,8 +178,21 @@ const handleFooterLogoError = (event: Event) => {
 
 <style scoped>
 .products-solutions-page {
-  font-family: 'Noto Sans', 'Noto Sans SC', 'Roboto', sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans SC', 'Inter', sans-serif;
   min-height: 100vh;
+}
+
+/* 标题字体 */
+.hero-title {
+  font-family: 'Inter', 'Noto Sans SC', sans-serif;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.section-title {
+  font-family: 'Inter', 'Noto Sans SC', sans-serif;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 /* 导航栏 */
@@ -472,6 +434,12 @@ const handleFooterLogoError = (event: Event) => {
   background: rgba(255, 255, 255, 0.2) !important;
   border-color: white;
   color: white;
+}
+
+.empty-state {
+  padding: 60px 20px;
+  text-align: center;
+  background: #f8f9fa;
 }
 
 .cta-buttons .ant-btn-default:hover {

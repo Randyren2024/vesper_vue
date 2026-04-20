@@ -4,7 +4,7 @@
     <Header />
     
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" v-motion-fade-visible :delay="100">
       <div class="hero-image-container">
         <img 
           :src="getImageUrl('contact', 'hero')" 
@@ -12,7 +12,7 @@
           class="hero-img"
           @error="(e) => e.target.src = images.fallback.contact.hero"
         />
-        <div class="hero-overlay">
+        <div class="hero-overlay" v-motion-slide-visible-bottom :delay="200">
           <h1 class="hero-title">Get In Touch</h1>
           <p class="hero-subtitle">Connect with our team for agricultural technology solutions</p>
         </div>
@@ -20,69 +20,37 @@
     </section>
 
     <!-- 联系信息 -->
-    <section class="contact-info-section">
+    <section class="contact-info-section" v-motion-fade-visible :delay="300">
       <div class="section-container">
-        <div class="section-header">
+        <div class="section-header" v-motion-slide-visible-bottom :delay="300">
           <h2 class="section-title">Contact Information</h2>
           <p class="section-subtitle">Reach out to us through any of these channels</p>
         </div>
         
         <div class="contact-cards">
-          <div class="contact-card">
-            <div class="contact-icon phone">
-              <span>📞</span>
+          <div 
+            v-for="(card, index) in contactCards" 
+            :key="card.title"
+            class="contact-card"
+            v-motion
+            :initial="{ opacity: 0, scale: 0.9 }"
+            :enter="{ opacity: 1, scale: 1, transition: { delay: index * 100 + 400 } }"
+          >
+            <div :class="`contact-icon ${card.iconClass}`">
+              <span>{{ card.icon }}</span>
             </div>
-            <h3 class="contact-card-title">Phone</h3>
-            <p class="contact-card-content">+61 408 518 918</p>
+            <h3 class="contact-card-title">{{ card.title }}</h3>
+            <p class="contact-card-content">{{ card.content }}</p>
             <a-button 
+              v-if="card.action"
               type="primary" 
               size="small" 
               class="contact-action-btn"
-              @click="callPhone"
+              @click="card.action"
             >
-              Call Now
+              {{ card.actionText }}
             </a-button>
-          </div>
-          
-          <div class="contact-card">
-            <div class="contact-icon email">
-              <span>📧</span>
-            </div>
-            <h3 class="contact-card-title">Email</h3>
-            <p class="contact-card-content">market@vesperinno.com</p>
-            <a-button 
-              type="primary" 
-              size="small" 
-              class="contact-action-btn"
-              @click="sendEmail"
-            >
-              Send Email
-            </a-button>
-          </div>
-          
-          <div class="contact-card">
-            <div class="contact-icon whatsapp">
-              <span>💬</span>
-            </div>
-            <h3 class="contact-card-title">WhatsApp</h3>
-            <p class="contact-card-content">+61 408 518 918</p>
-            <a-button 
-              type="primary" 
-              size="small" 
-              class="contact-action-btn"
-              @click="openWhatsApp"
-            >
-              Message on WhatsApp
-            </a-button>
-          </div>
-          
-          <div class="contact-card">
-            <div class="contact-icon location">
-              <span>📍</span>
-            </div>
-            <h3 class="contact-card-title">Location</h3>
-            <p class="contact-card-content">Australia</p>
-            <p class="contact-card-subtext">Global distribution network</p>
+            <p v-if="card.subtext" class="contact-card-subtext">{{ card.subtext }}</p>
           </div>
         </div>
       </div>
@@ -136,14 +104,17 @@
                 <a-select 
                   id="product"
                   v-model:value="formData.product"
-                  placeholder="Select a product"
+                  placeholder="Select a product or category"
                   size="large"
                   style="width: 100%"
+                  show-search
+                  :filter-option="filterOption"
                 >
-                  <a-select-option value="vg100">VG-100 Intelligent Navigation System</a-select-option>
-                  <a-select-option value="ar300">AR-300 Orchard Spraying Robot</a-select-option>
-                  <a-select-option value="sm200">SM-200 Soil Monitoring System</a-select-option>
-                  <a-select-option value="other">Other Solutions</a-select-option>
+                  <a-select-opt-group v-for="cat in productCategories" :key="cat.id" :label="cat.name">
+                    <a-select-option v-for="prod in getProductsByCategory(cat.id)" :key="prod.id" :value="prod.id">
+                      {{ prod.code }} - {{ prod.name }}
+                    </a-select-option>
+                  </a-select-opt-group>
                 </a-select>
               </div>
             </div>
@@ -204,62 +175,29 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <a-layout-footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <div class="footer-logo">
-            <img 
-              src="/logo.webp" 
-              alt="Vesper AgriTech" 
-              class="footer-logo-image"
-              @error="handleFooterLogoError"
-            />
-          </div>
-          <p class="footer-description">
-            Committed to advancing agricultural modernization through technological innovation,<br>
-            achieving sustainable agricultural production
-          </p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Solutions</h3>
-          <a href="#" class="footer-link">Precision Agriculture</a>
-          <a href="#" class="footer-link">Agricultural Robots</a>
-          <a href="#" class="footer-link">IoT Monitoring</a>
-          <a href="#" class="footer-link">Data Analytics</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Legal</h3>
-          <a href="/privacy-policy" class="footer-link">Privacy Policy</a>
-          <a href="/terms-conditions" class="footer-link">Terms & Conditions</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Contact Us</h3>
-          <p class="footer-contact">📧 market@vesperinno.com</p>
-          <p class="footer-contact">📞 +61 408 518 918</p>
-          <p class="footer-contact">📍 Australia</p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Follow Us</h3>
-          <a href="https://www.linkedin.com/in/alan-gan-vesperinno/" target="_blank" class="footer-link"><LinkedinOutlined /> LinkedIn</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>Copyright© {{ copyrightYear }} Shenzhen Vesper Inno Technology Co., Ltd All Rights Reserved</p>
-      </div>
-    </a-layout-footer>
+    <Footer />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { LinkedinOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
 import Header from '../components/Header.vue'
-import type { DealerLocation } from '../components/WorldMap.vue'
+import Footer from '../components/Footer.vue'
+import WorldMap from '../components/WorldMap.vue'
+import { categories, products, type Product } from '../data/products'
 
 const router = useRouter()
 const current = ref<string[]>(['contact'])
+
+// Product categories and helpers
+const productCategories = computed(() => categories)
+const getProductsByCategory = (categoryId: string) => products.filter(p => p.category === categoryId)
+const filterOption = (input: string, option: any) => {
+  const searchLower = input.toLowerCase()
+  return option.children?.toLowerCase().includes(searchLower) || true
+}
 
 // 图片配置
 const images = {
@@ -328,6 +266,43 @@ const sendEmail = () => {
   window.open('mailto:market@vesperinno.com', '_blank')
 }
 
+// 联系卡片数据
+const contactCards = [
+  {
+    icon: '📞',
+    iconClass: 'phone',
+    title: 'Phone',
+    content: '+61 408 518 918',
+    action: () => callPhone(),
+    actionText: 'Call Now'
+  },
+  {
+    icon: '📧',
+    iconClass: 'email',
+    title: 'Email',
+    content: 'market@vesperinno.com',
+    action: () => sendEmail(),
+    actionText: 'Send Email'
+  },
+  {
+    icon: '💬',
+    iconClass: 'whatsapp',
+    title: 'WhatsApp',
+    content: '+61 408 518 918',
+    action: () => openWhatsApp(),
+    actionText: 'Message on WhatsApp'
+  },
+  {
+    icon: '📍',
+    iconClass: 'location',
+    title: 'Location',
+    content: 'Australia',
+    subtext: 'Global distribution network',
+    action: null,
+    actionText: ''
+  }
+]
+
 // 表单数据
 interface FormData {
   name: string
@@ -363,13 +338,12 @@ const submitForm = () => {
   whatsappMessage += `Email: ${formData.email}\n`
   if (formData.phone) whatsappMessage += `Phone: ${formData.phone}\n`
   if (formData.product) {
-    const productNames: Record<string, string> = {
-      vg100: 'VG-100 Intelligent Navigation System',
-      ar300: 'AR-300 Orchard Spraying Robot',
-      sm200: 'SM-200 Soil Monitoring System',
-      other: 'Other Solutions'
+    const selectedProduct = products.find(p => p.id === formData.product)
+    if (selectedProduct) {
+      whatsappMessage += `Product Interest: ${selectedProduct.code} - ${selectedProduct.name}\n`
+    } else {
+      whatsappMessage += `Product Interest: ${formData.product}\n`
     }
-    whatsappMessage += `Product Interest: ${productNames[formData.product] || formData.product}\n`
   }
   whatsappMessage += `\nMessage:\n${formData.message}`
   
@@ -391,41 +365,32 @@ const submitForm = () => {
 const dealerLocations: DealerLocation[] = [
   // 大洋洲
   { countryCode: 'AU', countryName: 'Australia', city: 'Sydney', dealerCount: 5, description: 'Headquarters and main distribution center' },
-  { countryCode: 'NZ', countryName: 'New Zealand', city: 'Auckland', dealerCount: 2, description: 'Regional partner for Oceania' },
   
   // 北美洲
-  { countryCode: 'US', countryName: 'United States', city: 'California', dealerCount: 8, description: 'Major market with multiple distributors' },
   { countryCode: 'CA', countryName: 'Canada', city: 'Toronto', dealerCount: 3, description: 'Canadian agricultural technology partner' },
   
   // 欧洲
-  { countryCode: 'GB', countryName: 'United Kingdom', city: 'London', dealerCount: 4, description: 'European headquarters' },
-  { countryCode: 'DE', countryName: 'Germany', city: 'Berlin', dealerCount: 3, description: 'Central European distribution' },
   { countryCode: 'FR', countryName: 'France', city: 'Paris', dealerCount: 2, description: 'French agricultural solutions' },
-  { countryCode: 'ES', countryName: 'Spain', city: 'Madrid', dealerCount: 2, description: 'Spanish market partner' },
-  { countryCode: 'IT', countryName: 'Italy', city: 'Rome', dealerCount: 2, description: 'Italian agricultural technology' },
+  { countryCode: 'DE', countryName: 'Germany', city: 'Berlin', dealerCount: 3, description: 'Central European distribution' },
   
   // 亚洲
   { countryCode: 'CN', countryName: 'China', city: 'Shanghai', dealerCount: 10, description: 'Manufacturing and R&D center' },
   { countryCode: 'JP', countryName: 'Japan', city: 'Tokyo', dealerCount: 3, description: 'Japanese technology partner' },
-  { countryCode: 'KR', countryName: 'South Korea', city: 'Seoul', dealerCount: 2, description: 'Korean agricultural innovation' },
-  { countryCode: 'IN', countryName: 'India', city: 'Mumbai', dealerCount: 4, description: 'Indian market expansion' },
-  { countryCode: 'ID', countryName: 'Indonesia', city: 'Jakarta', dealerCount: 2, description: 'Southeast Asian partner' },
-  { countryCode: 'TH', countryName: 'Thailand', city: 'Bangkok', dealerCount: 2, description: 'Thai agricultural solutions' },
-  
-  // 南美洲
-  { countryCode: 'BR', countryName: 'Brazil', city: 'São Paulo', dealerCount: 3, description: 'South American agricultural hub' },
-  { countryCode: 'AR', countryName: 'Argentina', city: 'Buenos Aires', dealerCount: 2, description: 'Argentinian farming solutions' },
-  { countryCode: 'CL', countryName: 'Chile', city: 'Santiago', dealerCount: 2, description: 'Chilean wine region partner' },
+  { countryCode: 'KZ', countryName: 'Kazakhstan', city: 'Almaty', dealerCount: 1, description: 'Central Asian market' },
+  { countryCode: 'TR', countryName: 'Turkey', city: 'Istanbul', dealerCount: 2, description: 'Turkish agricultural solutions' },
   
   // 非洲
-  { countryCode: 'ZA', countryName: 'South Africa', city: 'Johannesburg', dealerCount: 2, description: 'African market entry' },
   { countryCode: 'KE', countryName: 'Kenya', city: 'Nairobi', dealerCount: 1, description: 'East African agricultural technology' },
+  { countryCode: 'TZ', countryName: 'Tanzania', city: 'Dar es Salaam', dealerCount: 1, description: 'East African partner' },
+  
+  // 俄罗斯
+  { countryCode: 'RU', countryName: 'Russia', city: 'Moscow', dealerCount: 2, description: 'Russian market partner' },
 ]
 </script>
 
 <style scoped>
 .contact {
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans SC', 'Inter', sans-serif;
 }
 
 /* Hero Section */

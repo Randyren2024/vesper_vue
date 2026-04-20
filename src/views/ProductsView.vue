@@ -3,16 +3,16 @@
     <!-- 导航栏 -->
     <Header />
     
-    <!-- Hero Banner -->
-    <section class="hero-section">
-      <div class="hero-content">
+<!-- Hero Banner -->
+    <section class="hero-section" v-motion-fade-visible :delay="100">
+      <div class="hero-content" v-motion-slide-visible-bottom :delay="200">
         <h1 class="hero-title">Our Products</h1>
         <p class="hero-subtitle">Discover high-performance systems designed to power your field operations with accuracy, efficiency, and reliability</p>
       </div>
     </section>
 
     <!-- Category Tabs -->
-    <section class="categories-section">
+    <section class="categories-section" v-motion-fade-visible :delay="300">
       <div class="categories-container">
         <div class="category-tabs">
           <a-button 
@@ -20,10 +20,10 @@
             class="category-tab"
             @click="selectedCategory = 'all'"
           >
-            All Products
+            All
           </a-button>
           <a-button 
-            v-for="cat in categories"
+            v-for="cat in displayCategories"
             :key="cat.id"
             :type="selectedCategory === cat.id ? 'primary' : 'default'"
             class="category-tab"
@@ -36,14 +36,17 @@
     </section>
 
     <!-- Products Grid -->
-    <section class="products-section">
+    <section class="products-section" v-motion-fade-visible :delay="400">
       <div class="products-container">
         <div class="products-grid">
           <a-card 
-            v-for="product in filteredProducts" 
+            v-for="(product, index) in filteredProducts" 
             :key="product.id" 
             class="product-card" 
             hoverable
+            v-motion
+            :initial="{ opacity: 0, y: 30 }"
+            :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 500 } }"
             @click="$router.push(`/product/${product.id}`)"
           >
             <template #cover>
@@ -76,48 +79,7 @@
       </div>
     </section>
 
-    <!-- 页脚 -->
-    <a-layout-footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <div class="footer-logo">
-            <img v-if="!footerLogoError" src="/logo.webp" alt="Vesper AgriTech" class="footer-logo-image" @error="handleFooterLogoError" />
-            <div v-else class="footer-logo-fallback">
-              <span class="footer-logo-text">VESPER</span>
-              <span class="footer-logo-subtext">AgriTech</span>
-            </div>
-          </div>
-          <p class="footer-description">
-            Committed to advancing agricultural modernization through technological innovation
-          </p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Quick Links</h3>
-          <a @click="$router.push('/products')" class="footer-link">Products</a>
-          <a @click="$router.push('/solutions')" class="footer-link">Solutions</a>
-          <a @click="$router.push('/about_us')" class="footer-link">About Us</a>
-          <a @click="$router.push('/contact')" class="footer-link">Contact</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Legal</h3>
-          <a href="/privacy-policy" class="footer-link">Privacy Policy</a>
-          <a href="/terms-conditions" class="footer-link">Terms & Conditions</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Contact Us</h3>
-          <p class="footer-contact">market@vesperinno.com</p>
-          <p class="footer-contact">+61 408 518 918</p>
-          <p class="footer-contact">Australia</p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Follow Us</h3>
-          <a href="https://www.linkedin.com/in/alan-gan-vesperinno/" target="_blank" class="footer-link"><LinkedinOutlined /> LinkedIn</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>Copyright© {{ currentYear }} Shenzhen Vesper Inno Technology Co., Ltd All Rights Reserved</p>
-      </div>
-    </a-layout-footer>
+    <Footer />
   </div>
 </template>
 
@@ -126,6 +88,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { LinkedinOutlined } from '@ant-design/icons-vue'
 import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
 import { categories, products, type Product } from '../data/products'
 
 const route = useRoute()
@@ -167,7 +130,7 @@ const openWhatsApp = (product: Product) => {
 
 <style scoped>
 .products-page {
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans SC', 'Inter', sans-serif;
 }
 
 .header {

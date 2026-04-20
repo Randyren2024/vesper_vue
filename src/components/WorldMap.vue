@@ -5,7 +5,7 @@
       <p class="map-subtitle" v-if="subtitle">{{ subtitle }}</p>
     </div>
     
-    <div class="map-wrapper" ref="mapContainer">
+    <div class="map-wrapper" ref="mapContainer" v-show="isMounted">
       <MapChart
         :key="mapKey"
         :data="mapData"
@@ -16,7 +16,7 @@
         @map-item-mouseover="handleMapHover"
         @map-item-mouseout="handleMapLeave"
       >
-        <WorldMap />
+        <WorldMapChart />
       </MapChart>
       
       <!-- 图例 -->
@@ -54,7 +54,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, nextTick } from 'vue'
-import { MapChart, WorldMap } from 'vue3-map-chart'
+import { MapChart, WorldMap as WorldMapChart } from 'vue3-map-chart'
 import 'vue3-map-chart/dist/style.css'
 
 // Props
@@ -68,7 +68,7 @@ interface Props {
   baseColor?: string
 }
 
-interface DealerLocation {
+export interface DealerLocation {
   countryCode: string
   countryName: string
   city: string
@@ -90,10 +90,12 @@ const props = withDefaults(defineProps<Props>(), {
 
 const mapContainer = ref<HTMLElement | null>(null)
 const mapKey = ref(0)
+const isMounted = ref(false)
 
 onMounted(async () => {
   await nextTick()
   mapKey.value++
+  isMounted.value = true
 })
 
 // 默认经销商数据（示例）

@@ -1,6 +1,12 @@
 <template>
   <a-layout-header class="header">
     <div class="header-content">
+      <!-- 移动端汉堡菜单按钮 -->
+      <a-button class="menu-trigger" type="text" @click="openDrawer">
+        <MenuOutlined />
+      </a-button>
+      
+      <!-- Logo -->
       <div class="logo">
         <router-link to="/">
           <img 
@@ -12,15 +18,16 @@
         </router-link>
       </div>
       
+      <!-- 桌面端菜单 -->
       <a-menu 
         v-model:selectedKeys="currentKeys" 
         mode="horizontal" 
-        class="nav-menu"
+        class="nav-menu desktop-menu"
       >
         <a-menu-item key="home" @click="$router.push('/')">Home</a-menu-item>
         
         <!-- Products & Solutions Dropdown -->
-        <a-sub-menu key="products-solutions" title="Products & Solutions">
+        <a-sub-menu key="products-solutions">
           <template #title>
             <span class="dropdown-title">
               Products & Solutions
@@ -32,7 +39,7 @@
             <a-menu-item 
               v-for="category in categories.slice(0, 5)" 
               :key="category.id"
-              @click="$router.push('/products-solutions')"
+              @click="handleCategoryClick(category.id)"
             >
               <div class="category-item">
                 <component :is="categoryIcons[category.icon]" class="category-icon" />
@@ -50,41 +57,100 @@
         <a-menu-item key="contact" @click="$router.push('/contact')">Contact</a-menu-item>
       </a-menu>
       
-      <div class="header-actions">
+      <!-- Request Demo 按钮 (桌面端) -->
+      <div class="header-actions desktop-actions">
         <a-button type="primary" class="demo-btn" @click="handleRequestDemo">
           Request Demo
         </a-button>
       </div>
     </div>
+    
+    <!-- 移动端抽屉菜单 -->
+    <a-drawer
+      v-model:open="drawerVisible"
+      title=""
+      placement="left"
+      :width="280"
+      class="mobile-drawer"
+      :body-style="{ padding: 0 }"
+    >
+      <div class="drawer-content">
+        <!-- Logo in drawer -->
+        <div class="drawer-logo" v-motion-slide-visible-top>
+          <img 
+            src="/logo.webp" 
+            alt="Vesper AgriTech" 
+            class="logo-image"
+            @error="handleLogoError"
+          />
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <a-menu
+          v-model:selectedKeys="currentKeys"
+          mode="vertical"
+          class="mobile-menu"
+        >
+          <a-menu-item 
+            v-for="(item, index) in menuItems" 
+            :key="item.key"
+            v-motion
+            :initial="{ opacity: 0, x: -20 }"
+            :enter="{ opacity: 1, x: 0, transition: { delay: index * 50 + 100 } }"
+            @click="handleMenuClick(item.key)"
+          >
+            <component :is="item.icon" /> {{ item.label }}
+          </a-menu-item>
+        </a-menu>
+        
+        <!-- Divider -->
+        <a-divider />
+        
+        <!-- Request Demo 按钮 -->
+        <div class="drawer-actions" v-motion-slide-visible-bottom :delay="300">
+          <a-button type="primary" block size="large" @click="handleRequestDemo">
+            Request Demo
+          </a-button>
+        </div>
+      </div>
+    </a-drawer>
   </a-layout-header>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import * as Icons from '@ant-design/icons-vue'
+import { 
+  MenuOutlined, 
+  DownOutlined, 
+  HomeOutlined, 
+  AppstoreOutlined, 
+  TeamOutlined, 
+  PhoneOutlined,
+  AimOutlined,
+  RobotOutlined,
+  ControlOutlined 
+} from '@ant-design/icons-vue'
 import { categories } from '../data/products'
 
 const router = useRouter()
 const route = useRoute()
 
 const currentKeys = ref<string[]>(['home'])
+const drawerVisible = ref(false)
 
-const categoryIcons: Record<string, any> = Icons
-
-interface Product {
-  id: string
-  code: string
-  name: string
-  category: string
-}
-
-const featuredProducts: Product[] = [
-  { id: 'af718', code: 'AF718', name: 'Autosteering System', category: 'precision-agriculture' },
-  { id: 'aries300n', code: 'Aries300N', name: 'Orchard Spraying Robot', category: 'agricultural-robotics' },
-  { id: 'taurus80e', code: 'Taurus80E', name: 'Smart Lawn Mowing Robot', category: 'agricultural-robotics' },
-  { id: 'vs100', code: 'VS100', name: 'Spray Control System', category: 'precision-agriculture' },
+const menuItems = [
+  { key: '/', label: 'Home', icon: HomeOutlined },
+  { key: '/products-solutions', label: 'Products & Solutions', icon: AppstoreOutlined },
+  { key: '/about_us', label: 'About', icon: TeamOutlined },
+  { key: '/contact', label: 'Contact', icon: PhoneOutlined }
 ]
+
+const categoryIcons: Record<string, any> = {
+  AimOutlined,
+  RobotOutlined,
+  ControlOutlined
+}
 
 const handleLogoError = (event: Event) => {
   const img = event.target as HTMLImageElement
@@ -93,7 +159,23 @@ const handleLogoError = (event: Event) => {
   }
 }
 
+const openDrawer = () => {
+  drawerVisible.value = true
+}
+
+const handleMenuClick = (path: string) => {
+  drawerVisible.value = false
+  router.push(path)
+}
+
+const handleCategoryClick = async (categoryId: string) => {
+  drawerVisible.value = false
+  await router.push(`/products-solutions?category=${categoryId}`)
+  window.scrollTo(0, 0)
+}
+
 const handleRequestDemo = () => {
+  drawerVisible.value = false
   const phoneNumber = '8613755006969'
   const message = 'Hello! I would like to request a demo of Vesper AgriTech products.'
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
@@ -136,6 +218,7 @@ onMounted(() => {
   padding: 12px 0;
   flex-wrap: wrap;
   gap: 12px;
+  position: relative;
 }
 
 .logo {
@@ -153,9 +236,9 @@ onMounted(() => {
   width: 120px;
   height: auto;
   object-fit: contain;
-  flex-shrink: 0;
 }
 
+/* 桌面端菜单 */
 .nav-menu {
   border: none;
   background: transparent;
@@ -163,14 +246,19 @@ onMounted(() => {
   min-width: 0;
   display: flex;
   justify-content: center;
+  font-weight: 600;
 }
 
 .nav-menu :deep(.ant-menu-item) {
   padding: 0 16px !important;
+  font-weight: 600;
 }
 
-.nav-menu :deep(.ant-menu-submenu-title) {
-  padding: 0 16px !important;
+/* 汉堡菜单按钮 */
+.menu-trigger {
+  display: none;
+  font-size: 20px;
+  padding: 4px 8px;
 }
 
 .dropdown-title {
@@ -195,23 +283,6 @@ onMounted(() => {
   color: #52c41a;
 }
 
-.product-item {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.product-code {
-  font-size: 12px;
-  color: #52c41a;
-  font-weight: 600;
-}
-
-.product-name {
-  font-size: 14px;
-  color: #666;
-}
-
 .view-all {
   color: #52c41a;
   font-weight: 500;
@@ -233,50 +304,118 @@ onMounted(() => {
   height: auto;
 }
 
-/* SubMenu dropdown styles */
-.nav-menu :deep(.ant-menu-submenu-selected) {
-  color: #52c41a;
+/* 移动端抽屉 */
+.mobile-drawer :deep(.ant-drawer-body) {
+  padding: 0;
 }
 
-.nav-menu :deep(.ant-menu-submenu-selected)::after {
-  display: none;
+.drawer-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-/* Responsive */
+.drawer-logo {
+  padding: 24px 20px;
+  border-bottom: 1px solid #f0f0f0;
+  text-align: center;
+}
+
+.drawer-logo .logo-image {
+  width: 140px;
+}
+
+.mobile-menu {
+  border: none;
+  flex: 1;
+}
+
+.mobile-menu :deep(.ant-menu-item) {
+  padding: 16px 20px !important;
+  font-size: 16px;
+  height: auto;
+  line-height: 1.5;
+  margin: 4px 8px;
+  border-radius: 8px;
+}
+
+.mobile-menu :deep(.ant-menu-item-selected) {
+  background: linear-gradient(135deg, #52c41a, #73d13d) !important;
+  color: white !important;
+}
+
+.mobile-menu :deep(.ant-menu-item:hover) {
+  background: #f6ffed !important;
+  color: #52c41a !important;
+}
+
+.mobile-menu :deep(.ant-menu-item) {
+  font-weight: 600 !important;
+}
+
+.mobile-menu :deep(.ant-menu-item .anticon) {
+  margin-right: 16px;
+  font-size: 18px;
+}
+
+.drawer-actions {
+  padding: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.drawer-actions .ant-btn {
+  height: 48px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* 响应式 */
 @media (max-width: 992px) {
+  .desktop-menu {
+    display: none;
+  }
+  
+  .desktop-actions {
+    display: none;
+  }
+  
+  .menu-trigger {
+    display: block;
+  }
+  
   .header-content {
-    justify-content: center;
+    justify-content: space-between;
   }
   
   .logo {
-    width: 100%;
-    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
   }
   
   .logo-image {
     width: 100px;
   }
-  
-  .nav-menu {
-    width: 100%;
-    justify-content: flex-start;
-    overflow-x: auto;
-  }
-  
-  .header-actions {
-    display: none;
-  }
 }
 
 @media (max-width: 576px) {
-  .nav-menu :deep(.ant-menu-item),
-  .nav-menu :deep(.ant-menu-submenu-title) {
-    padding: 0 10px !important;
-    font-size: 14px;
+  .header {
+    padding: 0 12px;
   }
   
-  .dropdown-title {
-    font-size: 14px;
+  .logo-image {
+    width: 90px;
+  }
+  
+  .logo {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .menu-trigger {
+    font-size: 18px;
+    padding: 4px 6px;
   }
 }
 </style>

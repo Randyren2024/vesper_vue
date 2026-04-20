@@ -23,7 +23,7 @@
     旧导航栏结束 -->
     
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" v-motion-fade-visible :delay="100">
       <div class="hero-image-container">
         <img 
           :src="getImageUrl('about', 'hero')" 
@@ -31,7 +31,7 @@
           class="hero-img"
           @error="(e) => e.target.src = images.fallback.about.hero"
         />
-        <div class="hero-overlay">
+        <div class="hero-overlay" v-motion-slide-visible-bottom :delay="200">
           <h1 class="hero-title">Bridging China's Intelligent Hardware Technology with Australia Agriculture</h1>
           <p class="hero-subtitle">Your trusted partner for advanced agricultural robotics solutions</p>
         </div>
@@ -39,9 +39,9 @@
     </section>
 
     <!-- Company Introduction -->
-    <section class="intro-section">
+    <section class="intro-section" v-motion-fade-visible :delay="300">
       <div class="section-container">
-        <div class="section-header">
+        <div class="section-header" v-motion-slide-visible-bottom :delay="300">
           <h2 class="section-title">About Vesper AgriTech</h2>
           <p class="section-subtitle">Building the bridge between technology and agriculture</p>
         </div>
@@ -54,7 +54,7 @@
               Based in Australia with strong connections to China's technology ecosystem, we leverage our full-chain capabilities—spanning R&D, mass production, and overseas service systems—to deliver cutting-edge agricultural robotics solutions that enhance efficiency and sustainability.
             </p>
           </div>
-          <div class="intro-image">
+          <div class="intro-image" v-motion-slide-visible-right :delay="400">
             <img 
               :src="getImageUrl('about', 'intro')" 
               alt="Agricultural Technology"
@@ -66,14 +66,21 @@
     </section>
 
     <!-- Company Journey Timeline -->
-    <section class="timeline-section">
+    <section class="timeline-section" v-motion-fade-visible :delay="500">
       <div class="section-container">
-        <div class="section-header">
+        <div class="section-header" v-motion-slide-visible-bottom :delay="500">
           <h2 class="section-title">Our Journey</h2>
           <p class="section-subtitle">From drones to agricultural robotics</p>
         </div>
         <div class="timeline">
-          <div class="timeline-item" v-for="(item, index) in timeline" :key="index">
+          <div 
+            v-for="(item, index) in timeline" 
+            :key="index"
+            class="timeline-item"
+            v-motion
+            :initial="{ opacity: 0, x: -30 }"
+            :enter="{ opacity: 1, x: 0, transition: { delay: index * 100 + 600 } }"
+          >
             <div class="timeline-year">{{ item.year }}</div>
             <div class="timeline-content">
               <h3 class="timeline-title">{{ item.title }}</h3>
@@ -85,14 +92,19 @@
     </section>
 
     <!-- Leadership Team -->
-    <section class="team-section">
+    <section class="team-section" v-motion-fade-visible :delay="700">
       <div class="section-container">
-        <div class="section-header">
+        <div class="section-header" v-motion-slide-visible-bottom :delay="700">
           <h2 class="section-title">Leadership Team</h2>
           <p class="section-subtitle">Expertise driving innovation</p>
         </div>
         <div class="team-grid">
-          <div class="team-card">
+          <div 
+            class="team-card"
+            v-motion
+            :initial="{ opacity: 0, y: 50 }"
+            :enter="{ opacity: 1, y: 0, transition: { delay: 800 } }"
+          >
             <div class="team-image">
               <img 
                 :src="getImageUrl('about', 'team')" 
@@ -177,50 +189,7 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <a-layout-footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <div class="footer-logo">
-            <img 
-              src="/logo.png" 
-              alt="Vesper AgriTech" 
-              class="footer-logo-image"
-              @error="handleFooterLogoError"
-            />
-          </div>
-          <p class="footer-description">
-            Committed to advancing agricultural modernization through technological innovation,<br>
-            achieving sustainable agricultural production
-          </p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Solutions</h3>
-          <a href="#" class="footer-link">Precision Agriculture</a>
-          <a href="#" class="footer-link">Agricultural Robots</a>
-          <a href="#" class="footer-link">IoT Monitoring</a>
-          <a href="#" class="footer-link">Data Analytics</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Legal</h3>
-          <a href="/privacy-policy" class="footer-link">Privacy Policy</a>
-          <a href="/terms-conditions" class="footer-link">Terms & Conditions</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Contact Us</h3>
-          <p class="footer-contact">📧 market@vesperinno.com</p>
-          <p class="footer-contact">📞 +61 408 518 918</p>
-          <p class="footer-contact">📍 Australia</p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Follow Us</h3>
-          <a href="https://www.linkedin.com/in/alan-gan-vesperinno/" target="_blank" class="footer-link"><LinkedinOutlined /> LinkedIn</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>Copyright© {{ new Date().getFullYear() }} Shenzhen Vesper Inno Technology Co., Ltd All Rights Reserved</p>
-      </div>
-    </a-layout-footer>
+    <Footer />
   </div>
 </template>
 
@@ -229,6 +198,7 @@ import { ref } from 'vue'
 import { LinkedinOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
 import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
 
 const router = useRouter()
 const current = ref<string[]>(['about'])
@@ -335,7 +305,7 @@ const values = [
 
 <style scoped>
 .about {
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans SC', 'Inter', sans-serif;
 }
 
 /* Hero Section */

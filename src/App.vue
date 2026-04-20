@@ -16,7 +16,7 @@ const themeConfig = computed(() => ({
     colorError: '#f44336',
     colorInfo: '#2196f3',
     borderRadius: 8,
-    fontFamily: "'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif",
+    fontFamily: "'Noto Sans', 'Noto Sans SC', 'Inter', -apple-system, 'Segoe UI', sans-serif",
     fontSize: 14,
     colorText: '#2c3e50',
     colorTextSecondary: '#666',
@@ -50,8 +50,9 @@ const theme = themeConfig
 }
 
 body {
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans SC', 'Inter', -apple-system, 'Segoe UI', sans-serif;
   background-color: #f8f9fa;
+  line-height: 1.7;
 }
 
 #app {

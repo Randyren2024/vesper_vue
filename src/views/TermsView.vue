@@ -1,40 +1,18 @@
 <template>
   <div class="terms-conditions">
     <!-- 导航栏 -->
-    <a-layout-header class="header">
-      <div class="header-content">
-        <div class="logo">
-          <router-link to="/">
-            <img 
-              src="/logo.webp" 
-              alt="Vesper AgriTech" 
-              class="logo-image"
-              @error="handleLogoError"
-            />
-          </router-link>
-        </div>
-        <a-menu v-model:selectedKeys="current" mode="horizontal" class="nav-menu">
-          <a-menu-item key="home" @click="$router.push('/')">Home</a-menu-item>
-          <a-menu-item key="products-solutions" @click="$router.push('/products-solutions')">Products & Solutions</a-menu-item>
-          <a-menu-item key="about" @click="$router.push('/about_us')">About</a-menu-item>
-          <a-menu-item key="contact" @click="$router.push('/contact')">Contact</a-menu-item>
-        </a-menu>
-        <div class="header-actions">
-          <a-button type="primary" class="demo-btn" @click="openWhatsApp">Request Demo</a-button>
-        </div>
-      </div>
-    </a-layout-header>
+    <Header />
 
     <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="hero-content">
+    <section class="hero-section" v-motion-fade-visible :delay="100">
+      <div class="hero-content" v-motion-slide-visible-bottom :delay="200">
         <h1 class="hero-title">Terms & Conditions</h1>
         <p class="hero-subtitle">Please read these terms carefully before using our services</p>
       </div>
     </section>
 
     <!-- Content -->
-    <section class="content-section">
+    <section class="content-section" v-motion-fade-visible :delay="300">
       <div class="section-container">
         <!-- Table of Contents -->
         <div class="toc">
@@ -276,50 +254,7 @@
       </div>
     </section>
 
-    <!-- Footer -->
-    <a-layout-footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <div class="footer-logo">
-            <img 
-              src="/logo.webp" 
-              alt="Vesper AgriTech" 
-              class="footer-logo-image"
-              @error="handleFooterLogoError"
-            />
-          </div>
-          <p class="footer-description">
-            Committed to advancing agricultural modernization through technological innovation,<br>
-            achieving sustainable agricultural production
-          </p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Solutions</h3>
-          <a href="#" class="footer-link">Precision Agriculture</a>
-          <a href="#" class="footer-link">Agricultural Robots</a>
-          <a href="#" class="footer-link">IoT Monitoring</a>
-          <a href="#" class="footer-link">Data Analytics</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Legal</h3>
-          <a href="/privacy-policy" class="footer-link">Privacy Policy</a>
-          <a href="/terms-conditions" class="footer-link">Terms & Conditions</a>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Contact Us</h3>
-          <p class="footer-contact">📧 market@vesperinno.com</p>
-          <p class="footer-contact">📞 +61 408 518 918</p>
-          <p class="footer-contact">📍 Australia</p>
-        </div>
-        <div class="footer-section">
-          <h3 class="footer-title">Follow Us</h3>
-          <a href="https://www.linkedin.com/in/alan-gan-vesperinno/" target="_blank" class="footer-link"><LinkedinOutlined /> LinkedIn</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>Copyright© {{ copyrightYear }} Shenzhen Vesper Inno Technology Co., Ltd All Rights Reserved</p>
-      </div>
-    </a-layout-footer>
+    <Footer />
   </div>
 </template>
 
@@ -328,6 +263,7 @@ import { ref, computed } from 'vue'
 import { LinkedinOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
 import Header from '../components/Header.vue'
+import Footer from '../components/Footer.vue'
 
 const router = useRouter()
 const current = ref<string[]>(['terms'])
@@ -385,7 +321,7 @@ const openWhatsApp = () => {
 
 <style scoped>
 .terms-conditions {
-  font-family: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans SC', 'Inter', sans-serif;
 }
 
 /* Hero Section */
