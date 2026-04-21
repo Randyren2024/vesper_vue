@@ -98,7 +98,7 @@ export const products: Product[] = [
       { question: 'What vehicles is AF718 compatible with?', answer: 'AF718 is compatible with most agricultural tractors and heavy machinery including John Deere, Case IH, New Holland, and other major brands.' },
       { question: 'Does it require internet connectivity?', answer: 'No, AF718 uses GNSS satellite positioning and does not require internet for basic operation.' }
     ],
-    image: 'https://www.allynav.com/wp-content/uploads/2025/10/AF718-PRODUCT-1024x1024.png',
+    image: '/images/products/af718.webp',
     inStock: true,
     isBestSeller: true,
     isNew: true
@@ -133,7 +133,7 @@ export const products: Product[] = [
       'Voltage': '12V/24V DC',
       'Operating Temp': '-20°C to 70°C'
     },
-    image: 'https://www.allynav.com/wp-content/uploads/2025/10/AF305-Product-1024x1024.png',
+    image: '/images/products/af305.webp',
     inStock: true,
     isBestSeller: true,
     isNew: false
@@ -159,7 +159,7 @@ export const products: Product[] = [
       'Resolution': '1280x800',
       'Protocol': 'ISOBUS'
     },
-image: 'https://www.allynav.com/wp-content/uploads/2025/04/ISOBUS-Terminal-产品图-1024x1024.png',
+image: '/images/products/isobus-terminal.webp',
     inStock: true,
     isBestSeller: false,
     isNew: false
@@ -190,7 +190,7 @@ image: 'https://www.allynav.com/wp-content/uploads/2025/04/ISOBUS-Terminal-产�
       'Display': '10.1 inch',
       'IP Rating': 'IP67'
     },
-    image: 'https://www.allynav.com/wp-content/uploads/2025/10/VS100-产品图-1024x1024.png',
+    image: '/images/products/vs100.webp',
     inStock: true,
     isBestSeller: true,
     isNew: false
@@ -220,7 +220,7 @@ image: 'https://www.allynav.com/wp-content/uploads/2025/04/ISOBUS-Terminal-产�
       'Display': '7 inch',
       'Power': '12V DC'
     },
-    image: 'https://www.allynav.com/wp-content/uploads/2025/09/Group-1609-1-1024x1024.png',
+    image: '/images/products/group-1609-1.webp',
     inStock: true,
     isBestSeller: false,
     isNew: false
@@ -256,7 +256,7 @@ image: 'https://www.allynav.com/wp-content/uploads/2025/04/ISOBUS-Terminal-产�
       'Spray Width': '3-10 m',
       'Power': 'Hybrid (Gasoline-Electric)'
     },
-    image: 'https://www.allynav.com/wp-content/uploads/2025/11/300N-1024x1024.png',
+    image: '/images/products/300n.webp',
     inStock: true,
     isBestSeller: true,
     isNew: false
@@ -288,7 +288,7 @@ image: 'https://www.allynav.com/wp-content/uploads/2025/04/ISOBUS-Terminal-产�
       'Runtime': '8 hours',
       'Charging Time': '3 hours'
     },
-    image: 'https://www.allynav.com/wp-content/uploads/2025/11/80E-1-1024x1024.png',
+    image: '/images/products/80e-1.webp',
     inStock: true,
     isBestSeller: true,
     isNew: false
@@ -319,7 +319,7 @@ image: 'https://www.allynav.com/wp-content/uploads/2025/04/ISOBUS-Terminal-产�
       'Sensors': 'GNSS + Laser',
       'Power': '12V/24V DC'
     },
-    image: 'https://www.allynav.com/wp-content/uploads/2026/01/EGS101-1024x1024.png',
+    image: '/images/products/egs101.webp',
     inStock: true,
     isBestSeller: false,
     isNew: false

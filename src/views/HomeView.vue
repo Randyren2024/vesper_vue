@@ -41,7 +41,7 @@
             <div class="slide-content">
               <div class="slide-image">
                 <img 
-                  src="https://www.allynav.com/wp-content/uploads/2025/10/AF718-PRODUCT-1024x1024.png" 
+                  src="/images/products/af718.webp" 
                   alt="AF718 Autosteering System"
                   class="slide-img"
                   @error="(e) => e.target.src = images.fallback.carousel[0]"
@@ -60,7 +60,7 @@
             <div class="slide-content">
               <div class="slide-image">
                 <img 
-                  src="https://www.allynav.com/wp-content/uploads/2025/11/300N-1024x1024.png" 
+                  src="/images/products/300n.webp" 
                   alt="Aries300N Orchard Spraying Robot"
                   class="slide-img"
                   @error="(e) => e.target.src = images.fallback.carousel[1]"
@@ -79,7 +79,7 @@
             <div class="slide-content">
               <div class="slide-image">
                 <img 
-                  src="https://www.allynav.com/wp-content/uploads/2025/11/80E-1-1024x1024.png" 
+                  src="/images/products/80e-1.webp" 
                   alt="Taurus80E Smart Lawn Mowing Robot"
                   class="slide-img"
                   @error="(e) => e.target.src = images.fallback.carousel[2]"
@@ -528,13 +528,16 @@ onUnmounted(() => {
 .hero-section {
   background: linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%);
   padding: clamp(40px, 5vw, 80px) clamp(16px, 3vw, 24px);
-  max-width: 1200px;
-  margin: 0 auto;
+  /* 全宽设计 - 移除最大宽度限制 */
+  scroll-margin-top: 100px; /* 当滚动到hero section时，为固定的header留出空间 */
 }
 
 .hero-content {
   text-align: center;
   margin-bottom: clamp(40px, 5vw, 60px);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-title {
@@ -586,15 +589,19 @@ onUnmounted(() => {
 .carousel-container {
   position: relative;
   width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 20px;
-  overflow: hidden;
+  /* 移除 overflow: hidden，因为 object-fit: contain 不会溢出 */
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  background-color: #f5f7fa; /* 容器背景色，与图片背景一致 */
 }
 
 .carousel {
   display: flex;
   transition: transform 0.5s ease;
-  height: clamp(300px, 40vw, 500px);
+  height: clamp(280px, 35vw, 450px); /* 降低高度，显示更多图片宽度 */
 }
 
 .carousel-slide {
@@ -612,13 +619,25 @@ onUnmounted(() => {
   position: relative;
   height: 100%;
   width: 100%;
+  overflow: hidden;
+  /* 移除 border-radius，因为容器已经有圆角 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .slide-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  object-fit: contain; /* 显示完整图片，不裁剪 */
+  object-position: 50% 50%; /* 精确居中 */
+  background-color: #f5f7fa; /* 添加浅色背景填充空白区域 */
+  transition: transform 0.3s ease;
+}
+
+/* 悬停时轻微放大 */
+.carousel-slide:hover .slide-img {
+  transform: scale(1.05);
 }
 
 .slide-overlay {
@@ -661,7 +680,7 @@ onUnmounted(() => {
 /* 轮播控制 */
 .carousel-controls {
   position: absolute;
-  bottom: 20px;
+  bottom: 40px; /* 增加底部距离，避免遮挡描述文字 */
   left: 0;
   right: 0;
   display: flex;
