@@ -130,7 +130,7 @@
           v-motion
           :initial="{ opacity: 0, y: 50 }"
           :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 500 } }"
-          @click="$router.push(`/products?category=${category.id}`)"
+          @click="$router.push(`/products-solutions?category=${category.id}`)"
         >
           <template #cover>
             <div :class="`card-cover ${category.id}`">

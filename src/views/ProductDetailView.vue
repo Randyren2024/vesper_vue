@@ -7,7 +7,7 @@
       <a-breadcrumb>
         <a-breadcrumb-item><a @click="$router.push('/')">Home</a></a-breadcrumb-item>
         <a-breadcrumb-item><a @click="$router.push('/products-solutions')">Products & Solutions</a></a-breadcrumb-item>
-        <a-breadcrumb-item><a @click="`/products?category=${product.category}`">{{ product.categoryName }}</a></a-breadcrumb-item>
+        <a-breadcrumb-item><a @click="$router.push(`/products-solutions?category=${product.category}`)">{{ product.categoryName }}</a></a-breadcrumb-item>
         <a-breadcrumb-item>{{ product.code }}</a-breadcrumb-item>
       </a-breadcrumb>
     </div>
@@ -27,8 +27,8 @@
         </div>
         
         <div class="product-info-section" v-motion-slide-visible-right :delay="200">
-          <div class="product-category-link">
-            <a @click="$router.push('/products-solutions')">{{ product.categoryName }}</a>
+           <div class="product-category-link">
+            <a @click="$router.push(`/products-solutions?category=${product.category}`)">{{ product.categoryName }}</a>
           </div>
           <h1 class="product-title">{{ product.code }} {{ product.name }}</h1>
           <p class="product-description">{{ product.description }}</p>

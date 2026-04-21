@@ -11,7 +11,7 @@
         <a-menu v-model:selectedKeys="current" mode="horizontal" class="nav-menu">
           <a-menu-item key="home" @click="$router.push('/')">Home</a-menu-item>
           <a-menu-item key="solutions" @click="$router.push('/solutions')">Solutions</a-menu-item>
-          <a-menu-item key="products" @click="$router.push('/products')">Products</a-menu-item>
+          <a-menu-item key="products" @click="$router.push('/products-solutions')">Products & Solutions</a-menu-item>
           <a-menu-item key="about" @click="$router.push('/about_us')">About</a-menu-item>
           <a-menu-item key="contact" @click="$router.push('/contact')">Contact</a-menu-item>
         </a-menu>
