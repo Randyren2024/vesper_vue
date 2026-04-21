@@ -34,9 +34,8 @@
               <DownOutlined class="dropdown-icon" />
             </span>
           </template>
-          <a-menu-item-group>
-            <a-menu-item-group-title>Categories</a-menu-item-group-title>
-            <a-menu-item 
+<a-menu-item-group>
+              <a-menu-item
               v-for="category in categories.slice(0, 5)" 
               :key="category.id"
               @click="handleCategoryClick(category.id)"
