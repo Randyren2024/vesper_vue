@@ -20,7 +20,7 @@
         <h3 class="footer-title">Quick Links</h3>
         <a @click="$router.push('/products-solutions')" class="footer-link">Products & Solutions</a>
         <a @click="$router.push('/about_us')" class="footer-link">About Us</a>
-        <a @click="$router.push('/contact')" class="footer-link">Contact</a>
+            <a @click="$router.push('/contact_us')" class="footer-link">Contact Us</a>
         <a @click="$router.push('/support')" class="footer-link">Support</a>
       </div>
       <div class="footer-section">
@@ -34,7 +34,7 @@
           <a-collapse-panel key="quick-links" header="Quick Links">
             <a @click="$router.push('/products-solutions')" class="footer-link">Products & Solutions</a>
             <a @click="$router.push('/about_us')" class="footer-link">About Us</a>
-            <a @click="$router.push('/contact')" class="footer-link">Contact</a>
+        <a @click="$router.push('/contact_us')" class="footer-link">Contact Us</a>
             <a @click="$router.push('/support')" class="footer-link">Support</a>
           </a-collapse-panel>
           <a-collapse-panel key="legal" header="Legal">

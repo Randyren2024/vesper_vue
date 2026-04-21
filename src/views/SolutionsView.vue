@@ -51,7 +51,7 @@
       <div class="cta-container" v-motion-slide-visible-bottom :delay="600">
         <h2>Need a Custom Solution?</h2>
         <p>Contact us to discuss your specific agricultural needs</p>
-        <a-button type="primary" size="large" @click="$router.push('/contact')">
+        <a-button type="primary" size="large" @click="$router.push('/contact_us')">
           Contact Us
         </a-button>
       </div>

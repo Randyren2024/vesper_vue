@@ -12,8 +12,8 @@
           <a-menu-item key="home" @click="$router.push('/')">Home</a-menu-item>
           <a-menu-item key="solutions" @click="$router.push('/solutions')">Solutions</a-menu-item>
           <a-menu-item key="products" @click="$router.push('/products-solutions')">Products & Solutions</a-menu-item>
-          <a-menu-item key="about" @click="$router.push('/about_us')">About</a-menu-item>
-          <a-menu-item key="contact" @click="$router.push('/contact')">Contact</a-menu-item>
+          <a-menu-item key="about" @click="$router.push('/about_us')">About Us</a-menu-item>
+          <a-menu-item key="contact" @click="$router.push('/contact_us')">Contact Us</a-menu-item>
         </a-menu>
         <div class="header-actions">
           <a-button type="primary" class="demo-btn" @click="openWhatsApp">Request Demo</a-button>
@@ -177,7 +177,7 @@
             Whether you need agricultural robots, intelligent navigation systems, or customized solutions, our team is ready to help you find the perfect technology for your needs.
           </p>
           <div class="contact-actions">
-            <a-button type="primary" size="large" class="contact-btn" @click="router.push('/contact')">Contact Us</a-button>
+            <a-button type="primary" size="large" class="contact-btn" @click="router.push('/contact_us')">Contact Us</a-button>
             <a-button size="large" class="secondary-btn" @click="openWhatsApp">Request Demo</a-button>
           </div>
           <div class="contact-info">

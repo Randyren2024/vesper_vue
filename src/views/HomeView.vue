@@ -11,8 +11,8 @@
         <a-menu v-model:selectedKeys="current" mode="horizontal" class="nav-menu">
           <a-menu-item key="home" @click="$router.push('/')">Home</a-menu-item>
           <a-menu-item key="products-solutions" @click="$router.push('/products-solutions')">Products & Solutions</a-menu-item>
-          <a-menu-item key="about" @click="$router.push('/about_us')">About</a-menu-item>
-          <a-menu-item key="contact" @click="$router.push('/contact')">Contact</a-menu-item>
+          <a-menu-item key="about" @click="$router.push('/about_us')">About Us</a-menu-item>
+          <a-menu-item key="contact" @click="$router.push('/contact_us')">Contact Us</a-menu-item>
         </a-menu>
         <div class="header-actions">
           <a-button type="primary" class="demo-btn" @click="openWhatsApp">Request Demo</a-button>

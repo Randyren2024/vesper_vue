@@ -177,7 +177,7 @@
           <a-button type="primary" size="large" @click="openWhatsApp">
             <MessageOutlined /> Get A Quote
           </a-button>
-          <a-button size="large" @click="$router.push('/contact')">Contact Us</a-button>
+          <a-button size="large" @click="$router.push('/contact_us')">Contact Us</a-button>
         </div>
       </div>
     </section>

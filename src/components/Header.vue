@@ -52,8 +52,8 @@
           </a-menu-item-group>
         </a-sub-menu>
         
-        <a-menu-item key="about" @click="$router.push('/about_us')">About</a-menu-item>
-        <a-menu-item key="contact" @click="$router.push('/contact')">Contact</a-menu-item>
+        <a-menu-item key="about" @click="$router.push('/about_us')">About Us</a-menu-item>
+        <a-menu-item key="contact" @click="$router.push('/contact_us')">Contact Us</a-menu-item>
       </a-menu>
       
       <!-- Request Demo 按钮 (桌面端) -->
@@ -125,12 +125,14 @@ import {
   HomeOutlined, 
   AppstoreOutlined, 
   TeamOutlined, 
-  PhoneOutlined,
-  AimOutlined,
-  RobotOutlined,
-  ControlOutlined 
+  PhoneOutlined
 } from '@ant-design/icons-vue'
 import { categories } from '../data/products'
+import PrecisionAgricultureIcon from './icons/PrecisionAgricultureIcon.vue'
+import PrecisionSprayingIcon from './icons/PrecisionSprayingIcon.vue'
+import LandLevelingIcon from './icons/LandLevelingIcon.vue'
+import AgriculturalRobotsIcon from './icons/AgriculturalRobotsIcon.vue'
+import MachineControlIcon from './icons/MachineControlIcon.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -141,14 +143,16 @@ const drawerVisible = ref(false)
 const menuItems = [
   { key: '/', label: 'Home', icon: HomeOutlined },
   { key: '/products-solutions', label: 'Products & Solutions', icon: AppstoreOutlined },
-  { key: '/about_us', label: 'About', icon: TeamOutlined },
-  { key: '/contact', label: 'Contact', icon: PhoneOutlined }
+  { key: '/about_us', label: 'About Us', icon: TeamOutlined },
+  { key: '/contact_us', label: 'Contact Us', icon: PhoneOutlined }
 ]
 
 const categoryIcons: Record<string, any> = {
-  AimOutlined,
-  RobotOutlined,
-  ControlOutlined
+  'precision-agriculture': PrecisionAgricultureIcon,
+  'precision-spraying': PrecisionSprayingIcon,
+  'land-leveling': LandLevelingIcon,
+  'agricultural-robotics': AgriculturalRobotsIcon,
+  'machine-control': MachineControlIcon
 }
 
 const handleLogoError = (event: Event) => {
@@ -189,7 +193,7 @@ onMounted(() => {
     currentKeys.value = ['products-solutions']
   } else if (path === '/about_us') {
     currentKeys.value = ['about']
-  } else if (path === '/contact') {
+  } else if (path === '/contact_us') {
     currentKeys.value = ['contact']
   }
 })

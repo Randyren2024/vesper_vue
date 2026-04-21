@@ -86,7 +86,7 @@
         <p>Contact us today for a personalized demonstration or quote</p>
         <div class="cta-buttons">
           <a-button type="primary" size="large" @click="openWhatsApp">Request a Demo</a-button>
-          <a-button size="large" @click="$router.push('/contact')">Contact Us</a-button>
+          <a-button size="large" @click="$router.push('/contact_us')">Contact Us</a-button>
         </div>
       </div>
     </section>
@@ -106,17 +106,27 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import * as Icons from '@ant-design/icons-vue'
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
 import { categories, products, type Product } from '../data/products'
+import PrecisionAgricultureIcon from '../components/icons/PrecisionAgricultureIcon.vue'
+import PrecisionSprayingIcon from '../components/icons/PrecisionSprayingIcon.vue'
+import LandLevelingIcon from '../components/icons/LandLevelingIcon.vue'
+import AgriculturalRobotsIcon from '../components/icons/AgriculturalRobotsIcon.vue'
+import MachineControlIcon from '../components/icons/MachineControlIcon.vue'
 
 const route = useRoute()
 const currentKeys = ref<string[]>(['products-solutions'])
 const selectedCategory = ref('all')
 const currentYear = new Date().getFullYear()
 
-const categoryIcons: Record<string, any> = Icons
+const categoryIcons: Record<string, any> = {
+  'precision-agriculture': PrecisionAgricultureIcon,
+  'precision-spraying': PrecisionSprayingIcon,
+  'land-leveling': LandLevelingIcon,
+  'agricultural-robotics': AgriculturalRobotsIcon,
+  'machine-control': MachineControlIcon
+}
 
 const displayCategories = categories
 

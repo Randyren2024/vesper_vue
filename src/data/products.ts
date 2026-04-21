@@ -28,35 +28,35 @@ export const categories = [
     name: 'Precision Agriculture',
     nameCn: '精准农业',
     description: 'Advanced auto-steering systems including AF718, AF305, and ISOBUS terminal',
-    icon: 'AimOutlined'
+    icon: 'precision-agriculture'
   },
   {
     id: 'precision-spraying',
     name: 'Precision Agriculture Solutions',
     nameCn: '精准农业解决方案',
     description: 'Precision spraying solutions including VS100 Spray Control System',
-    icon: 'AimOutlined'
+    icon: 'precision-spraying'
   },
   {
     id: 'land-leveling',
     name: 'Land Leveling System',
     nameCn: '土地整平系统',
     description: 'GPS-controlled land leveling systems for sustainable agriculture',
-    icon: 'AimOutlined'
+    icon: 'land-leveling'
   },
   {
     id: 'agricultural-robotics',
     name: 'Agricultural Robots',
     nameCn: '农业机器人',
     description: 'Autonomous robots for spraying, mowing, and farm operations',
-    icon: 'RobotOutlined'
+    icon: 'agricultural-robotics'
   },
   {
     id: 'machine-control',
     name: 'Machine Control',
     nameCn: '机械控制',
     description: 'Intelligent guidance systems for construction and mining equipment',
-    icon: 'ControlOutlined'
+    icon: 'machine-control'
   }
 ]
 
