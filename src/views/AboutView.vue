@@ -81,6 +81,9 @@
             :initial="{ opacity: 0, x: -30 }"
             :enter="{ opacity: 1, x: 0, transition: { delay: index * 100 + 600 } }"
           >
+            <div class="timeline-logo">
+              <img :src="item.logo" :alt="item.title" />
+            </div>
             <div class="timeline-year">{{ item.year }}</div>
             <div class="timeline-content">
               <h3 class="timeline-title">{{ item.title }}</h3>
@@ -252,22 +255,26 @@ const timeline = [
   {
     year: '2015-2018',
     title: 'DJI Intelligent Perception System Team',
-    description: 'Core member, pioneered mass production of 8,000 units/day. DJI held 90% market share in consumer and agricultural drones.'
+    description: 'Core member, pioneered mass production of 8,000 units/day. DJI held 90% market share in consumer and agricultural drones.',
+    logo: '/dji_logo.webp'
   },
   {
     year: '2018-2022',
     title: 'Alibaba DAMO Academy',
-    description: 'Architect for robotics team, reported to Professor Tan Ping (3D vision expert). Focused on spatial intelligence and robotics technologies.'
+    description: 'Architect for robotics team, reported to Professor Tan Ping (3D vision expert). Focused on spatial intelligence and robotics technologies.',
+    logo: '/alibaba_damo_academy_logo.webp'
   },
   {
     year: '2022',
     title: 'Robotic Lawn Mower Company',
-    description: 'Co-founded company with investment from Mr. Lei Jun (Xiaomi) and Mr. Zeng Liqing (Tencent). Achieved successful mass production and overseas export.'
+    description: 'Co-founded company with investment from Mr. Lei Jun (Xiaomi) and Mr. Zeng Liqing (Tencent). Achieved successful mass production and overseas export.',
+    logo: '/xiaomi_logo.webp'
   },
   {
     year: '2024',
     title: 'Vesper AgriTech',
-    description: 'Extended expertise to large-scale agriculture. Partnered with Australia-China Agricultural Association. Established product matrix including agricultural robots and lawn mowers.'
+    description: 'Extended expertise to large-scale agriculture. Partnered with Australia-China Agricultural Association. Established product matrix including agricultural robots and lawn mowers.',
+    logo: '/logo.webp'
   }
 ]
 
@@ -472,6 +479,27 @@ const stats = [
   position: relative;
   margin-bottom: 40px;
   padding-left: 80px;
+}
+
+.timeline-logo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60px;
+  height: 60px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.timeline-logo img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 .timeline-year {
