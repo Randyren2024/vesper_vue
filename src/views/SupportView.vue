@@ -29,14 +29,14 @@
           <div class="support-card">
             <div class="support-icon">📞</div>
             <h3>Phone Support</h3>
-            <p class="support-phone">+61 408 518 918</p>
+            <p class="support-phone">+86 137 5500 6969</p>
             <a-button type="primary" size="large" block @click="callPhone">Call Now</a-button>
           </div>
           
           <div class="support-card">
             <div class="support-icon">💬</div>
             <h3>WhatsApp</h3>
-            <p class="support-phone">+61 408 518 918</p>
+            <p class="support-phone">+86 137 5500 6969</p>
             <a-button type="primary" size="large" block @click="openWhatsApp">Message on WhatsApp</a-button>
           </div>
           
@@ -164,11 +164,11 @@ const router = useRouter()
 const activeKey = ref(['1'])
 
 const callPhone = () => {
-  window.location.href = 'tel:+61408518918'
+  window.location.href = 'tel:+8613755006969'
 }
 
 const openWhatsApp = () => {
-  const phoneNumber = '61408518918'
+  const phoneNumber = '8613755006969'
   const message = 'Hello! I need technical support for my Vesper AgriTech product.'
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')

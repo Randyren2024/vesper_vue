@@ -241,14 +241,14 @@ const handleFooterLogoError = (event: Event) => { footerLogoError.value = true }
 const openWhatsAppDemo = () => {
   if (!product.value) return
   const message = `Hi, I would like to request a demo for ${product.value.code} ${product.value.name}. What are the available demo options?`
-  const whatsappUrl = `https://wa.me/61408518918?text=${encodeURIComponent(message)}`
+  const whatsappUrl = `https://wa.me/8613755006969?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')
 }
 
 const openWhatsApp = () => {
   if (!product.value) return
   const message = `Hi, I'm interested in ${product.value.code} ${product.value.name}. Could you please provide more information?`
-  const whatsappUrl = `https://wa.me/61408518918?text=${encodeURIComponent(message)}`
+  const whatsappUrl = `https://wa.me/8613755006969?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')
 }
 

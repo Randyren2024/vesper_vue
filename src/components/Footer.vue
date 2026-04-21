@@ -46,9 +46,9 @@
 
       <div class="footer-section footer-contact">
         <h3 class="footer-title">Contact Us</h3>
-        <p class="footer-contact">📧 market@vesperinno.com</p>
-        <p class="footer-contact">📞 +61 408 518 918</p>
-        <p class="footer-contact">📍 Australia</p>
+        <p class="footer-contact-text">📧 market@vesperinno.com</p>
+        <p class="footer-contact-text">📞 +86 137 5500 6969</p>
+        <p class="footer-contact-text">📍 Australia</p>
       </div>
 
       <div class="footer-section footer-follow">
@@ -144,7 +144,7 @@ const handleFooterLogoError = (event: Event) => {
   color: #52c41a;
 }
 
-.footer-contact {
+.footer-contact-text {
   color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
   margin: 0;
@@ -161,6 +161,38 @@ const handleFooterLogoError = (event: Event) => {
   color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
   margin: 0;
+}
+
+/* Hide accordion on desktop */
+.footer-mobile-accordion {
+  display: none;
+}
+
+/* Accordion styling */
+.footer-collapse {
+  background: transparent !important;
+}
+
+.footer-collapse :deep(.ant-collapse-item) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.footer-collapse :deep(.ant-collapse-header) {
+  color: white !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  padding: 12px 0 !important;
+  text-align: center !important;
+}
+
+.footer-collapse :deep(.ant-collapse-content-box) {
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+.footer-collapse :deep(.ant-collapse-content-box .footer-link) {
+  padding: 10px 0;
+  font-size: 16px;
 }
 
 
@@ -205,8 +237,21 @@ const handleFooterLogoError = (event: Event) => {
     text-align: center;
   }
   
-  .footer-contact {
+  .footer-contact-text {
     text-align: center;
+  }
+  
+  /* Show accordion on mobile */
+  .footer-mobile-accordion {
+    display: block;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+  
+  /* Hide regular Quick Links & Legal sections on mobile */
+  .footer-section:nth-child(2),  /* Quick Links */
+  .footer-section:nth-child(3) { /* Legal */
+    display: none;
   }
   
 

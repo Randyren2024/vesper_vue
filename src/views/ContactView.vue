@@ -272,7 +272,7 @@ const contactCards = [
     icon: '📞',
     iconClass: 'phone',
     title: 'Phone',
-    content: '+61 408 518 918',
+    content: '+86 137 5500 6969',
     action: () => callPhone(),
     actionText: 'Call Now'
   },
@@ -288,7 +288,7 @@ const contactCards = [
     icon: '💬',
     iconClass: 'whatsapp',
     title: 'WhatsApp',
-    content: '+61 408 518 918',
+    content: '+86 137 5500 6969',
     action: () => openWhatsApp(),
     actionText: 'Message on WhatsApp'
   },
