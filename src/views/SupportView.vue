@@ -231,6 +231,7 @@ const sendEmail = () => {
 
 .hero-subtitle {
   font-size: clamp(18px, 2vw, 24px);
+  color: white;
   opacity: 0.9;
   max-width: 600px;
 }
