@@ -191,48 +191,44 @@
 
     <!-- Why Choose Us -->
     <section class="why-choose-section" v-motion-fade-visible :delay="800">
-      <div class="section-container">
-        <div class="section-header" v-motion-slide-visible-bottom :delay="800">
-          <h2 class="section-title">Why Choose Us</h2>
-          <p class="section-subtitle">Our proven track record</p>
-        </div>
-        <div class="stats-grid">
-          <div 
-            v-for="(stat, index) in statItems" 
-            :key="index" 
-            class="stat-card"
-            v-motion
-            :initial="{ opacity: 0, y: 30 }"
-            :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 900 } }"
-          >
-            <div class="stat-icon">{{ stat.icon }}</div>
-            <h3 class="stat-title">{{ stat.title }}</h3>
-            <p class="stat-description">{{ stat.description }}</p>
-          </div>
+      <div class="section-header" v-motion-slide-visible-bottom :delay="800">
+        <h2 class="section-title">Why Choose Us</h2>
+        <p class="section-subtitle">Our proven track record</p>
+      </div>
+      <div class="stats-grid">
+        <div 
+          v-for="(stat, index) in statItems" 
+          :key="index" 
+          class="stat-card"
+          v-motion
+          :initial="{ opacity: 0, y: 30 }"
+          :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 900 } }"
+        >
+          <div class="stat-icon" :class="`stat-${index + 1}`">{{ stat.icon }}</div>
+          <h3 class="stat-title">{{ stat.title }}</h3>
+          <p class="stat-description">{{ stat.description }}</p>
         </div>
       </div>
     </section>
 
     <!-- Our Values -->
     <section class="values-section" v-motion-fade-visible :delay="900">
-      <div class="section-container">
-        <div class="section-header" v-motion-slide-visible-bottom :delay="900">
-          <h2 class="section-title">Our Values</h2>
-          <p class="section-subtitle">What drives us forward</p>
-        </div>
-        <div class="values-grid">
-          <div 
-            v-for="(value, index) in valueItems" 
-            :key="index" 
-            class="value-card"
-            v-motion
-            :initial="{ opacity: 0, y: 30 }"
-            :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 1000 } }"
-          >
-            <div class="value-icon">{{ value.icon }}</div>
-            <h3 class="value-title">{{ value.title }}</h3>
-            <p class="value-description">{{ value.description }}</p>
-          </div>
+      <div class="section-header" v-motion-slide-visible-bottom :delay="900">
+        <h2 class="section-title">Our Values</h2>
+        <p class="section-subtitle">What drives us forward</p>
+      </div>
+      <div class="values-grid">
+        <div 
+          v-for="(value, index) in valueItems" 
+          :key="index" 
+          class="value-card"
+          v-motion
+          :initial="{ opacity: 0, y: 30 }"
+          :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 1000 } }"
+        >
+          <div class="value-icon" :class="`value-${index + 1}`">{{ value.icon }}</div>
+          <h3 class="value-title">{{ value.title }}</h3>
+          <p class="value-description">{{ value.description }}</p>
         </div>
       </div>
     </section>
@@ -1054,25 +1050,20 @@ onUnmounted(() => {
 
 /* Why Choose Us Section */
 .why-choose-section {
-  padding: clamp(60px, 5vw, 80px) clamp(16px, 3vw, 24px);
+  padding: 80px 0;
   background: #f8f9fa;
-}
-
-.section-container {
-  max-width: 1200px;
-  margin: 0 auto;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: clamp(32px, 4vw, 48px);
+  margin-bottom: 50px;
 }
 
 .section-title {
   font-size: clamp(28px, 3vw, 36px);
   font-weight: 700;
   color: #2c3e50;
-  margin-bottom: clamp(12px, 1.5vw, 16px);
+  margin-bottom: 12px;
 }
 
 .section-subtitle {
@@ -1082,28 +1073,41 @@ onUnmounted(() => {
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .stat-card {
   background: white;
   border-radius: 12px;
-  padding: 30px 20px;
+  padding: 40px 20px;
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .stat-icon {
-  font-size: 40px;
-  margin-bottom: 16px;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
 }
+
+.stat-1 { background: linear-gradient(135deg, #b7eb8f, #95de64); }
+.stat-2 { background: linear-gradient(135deg, #91d5ff, #69c0ff); }
+.stat-3 { background: linear-gradient(135deg, #ffd666, #ffc53d); }
+.stat-4 { background: linear-gradient(135deg, #d3adf7, #b37feb); }
 
 .stat-title {
   font-size: 20px;
@@ -1113,32 +1117,53 @@ onUnmounted(() => {
 }
 
 .stat-description {
-  font-size: 14px;
+  font-size: 16px;
   color: #666;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 /* Our Values Section */
 .values-section {
-  padding: clamp(60px, 5vw, 80px) clamp(16px, 3vw, 24px);
+  padding: 80px 0;
   background: white;
 }
 
 .values-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .value-card {
-  padding: 24px 16px;
   text-align: center;
+  padding: 40px 20px;
+  border-radius: 12px;
+  background: #f8f9fa;
+  transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .value-icon {
-  font-size: 40px;
-  margin-bottom: 16px;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
 }
+
+.value-1 { background: linear-gradient(135deg, #b7eb8f, #95de64); }
+.value-2 { background: linear-gradient(135deg, #91d5ff, #69c0ff); }
+.value-3 { background: linear-gradient(135deg, #ffd666, #ffc53d); }
+.value-4 { background: linear-gradient(135deg, #d3adf7, #b37feb); }
 
 .value-title {
   font-size: 20px;
@@ -1148,30 +1173,18 @@ onUnmounted(() => {
 }
 
 .value-description {
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.5;
   color: #666;
-  line-height: 1.6;
 }
 
 /* 响应式调整 */
-@media (max-width: 1024px) {
-  .stats-grid,
-  .values-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 @media (max-width: 768px) {
   .stats-grid,
   .values-grid {
     grid-template-columns: 1fr;
     max-width: 400px;
     margin: 0 auto;
-  }
-  
-  .stat-card,
-  .value-card {
-    padding: 24px 16px;
   }
 }
 
