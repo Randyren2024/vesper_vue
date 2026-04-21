@@ -221,7 +221,7 @@
             <div class="contact-info-box">
               <p><strong>Vesper AgriTech</strong></p>
               <p>📧 Email: market@vesperinno.com</p>
-              <p>📞 Phone: +61 448 290 926</p>
+              <p>📞 Phone: +61 408 518 918</p>
               <p>📍 Location: Australia</p>
               <p class="contact-action">
                 <a-button type="primary" @click="$router.push('/contact_us')">Contact Us</a-button>
