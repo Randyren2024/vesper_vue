@@ -258,7 +258,7 @@ const openWhatsApp = (customMessage?: string) => {
 
 // 电话联系
 const callPhone = () => {
-  window.open('tel:+61448290926', '_blank')
+  window.open('tel:+61408518918', '_blank')
 }
 
 // 邮件联系
@@ -272,7 +272,7 @@ const contactCards = [
     icon: '📞',
     iconClass: 'phone',
     title: 'Phone',
-    content: '+61 448 290 926',
+    content: '+61 408 518 918',
     action: () => callPhone(),
     actionText: 'Call Now'
   },
