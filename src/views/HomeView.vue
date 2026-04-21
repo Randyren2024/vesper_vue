@@ -190,23 +190,25 @@
     </section>
 
     <!-- Why Choose Us -->
-    <section class="why-choose-section" v-motion-fade-visible :delay="800">
-      <div class="section-header" v-motion-slide-visible-bottom :delay="800">
-        <h2 class="section-title">Why Choose Us</h2>
-        <p class="section-subtitle">Our proven track record</p>
-      </div>
-      <div class="stats-grid">
-        <div 
-          v-for="(stat, index) in statItems" 
-          :key="index" 
-          class="stat-card"
-          v-motion
-          :initial="{ opacity: 0, y: 30 }"
-          :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 900 } }"
-        >
-          <div class="stat-icon">{{ stat.icon }}</div>
-          <h3 class="stat-title">{{ stat.title }}</h3>
-          <p class="stat-description">{{ stat.description }}</p>
+    <section class="stats-section" v-motion-fade-visible :delay="800">
+      <div class="section-container">
+        <div class="section-header" v-motion-slide-visible-bottom :delay="800">
+          <h2 class="section-title">Why Choose Us</h2>
+          <p class="section-subtitle">Our proven track record</p>
+        </div>
+        <div class="stats-grid">
+          <div 
+            v-for="(stat, index) in statItems" 
+            :key="index" 
+            class="stat-card"
+            v-motion
+            :initial="{ opacity: 0, y: 30 }"
+            :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 900 } }"
+          >
+            <div class="stat-icon">{{ stat.icon }}</div>
+            <h3 class="stat-title">{{ stat.title }}</h3>
+            <p class="stat-description">{{ stat.description }}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1054,6 +1056,12 @@ onUnmounted(() => {
   background: #f8f9fa;
 }
 
+/* Reusing stats-section for Why Choose Us */
+.stats-section {
+  padding: 80px 0;
+  background: #f8f9fa;
+}
+
 .section-header {
   text-align: center;
   margin-bottom: 50px;
@@ -1106,9 +1114,9 @@ onUnmounted(() => {
 }
 
 .stat-description {
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* Our Values Section */
