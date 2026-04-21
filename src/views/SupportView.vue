@@ -219,18 +219,19 @@ const sendEmail = () => {
 }
 
 .hero-title {
-  font-size: clamp(32px, 5vw, 48px);
+  font-size: clamp(32px, 4vw, 48px);
   font-weight: 700;
-  background: linear-gradient(135deg, #ffffff, #e6f7ff);
+  background: var(--gradient-primary);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   margin-bottom: 16px;
+  line-height: 1.2;
 }
 
 .hero-subtitle {
-  font-size: clamp(16px, 2vw, 20px);
-  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(18px, 2vw, 24px);
+  opacity: 0.9;
   max-width: 600px;
 }
 
