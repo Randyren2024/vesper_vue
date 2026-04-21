@@ -82,7 +82,7 @@
             :enter="{ opacity: 1, x: 0, transition: { delay: index * 100 + 600 } }"
           >
             <div class="timeline-logo">
-              <img :src="item.logo" :alt="item.title" />
+              <img :src="item.logo" :alt="item.title" @error="(e) => e.target.src = item.logo.replace('.webp', '.png')" />
             </div>
             <div class="timeline-year">{{ item.year }}</div>
             <div class="timeline-content">
@@ -468,7 +468,7 @@ const stats = [
 .timeline::before {
   content: '';
   position: absolute;
-  left: 30px;
+  left: 40px;
   top: 0;
   bottom: 0;
   width: 2px;
@@ -478,15 +478,15 @@ const stats = [
 .timeline-item {
   position: relative;
   margin-bottom: 40px;
-  padding-left: 80px;
+  padding-left: 100px;
 }
 
 .timeline-logo {
   position: absolute;
   left: 0;
   top: 0;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   background: white;
   border-radius: 50%;
   display: flex;
@@ -494,29 +494,34 @@ const stats = [
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  z-index: 1;
+  padding-bottom: 20px;
 }
 
 .timeline-logo img {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   object-fit: contain;
 }
 
 .timeline-year {
   position: absolute;
   left: 0;
-  top: 0;
-  width: 60px;
-  height: 60px;
-  background: #52c41a;
-  color: white;
-  border-radius: 50%;
+  bottom: 0;
+  width: 80px;
+  height: 20px;
+  background: linear-gradient(to top, #f6ffed, #d9f7be);
+  color: #237804;
+  border-radius: 0 0 40px 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 11px;
   text-align: center;
+  z-index: 2;
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #b7eb8f;
 }
 
 .timeline-content {
@@ -742,14 +747,19 @@ const stats = [
 
 /* Contact Section */
 .contact-section {
-  padding: 80px 0;
-  background: #f8f9fa;
+  padding: 100px 0;
+  background: linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%);
 }
 
 .contact-content {
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
+  background: white;
+  border-radius: 20px;
+  padding: 60px 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(82, 196, 26, 0.1);
 }
 
 .contact-title {
@@ -958,17 +968,32 @@ const stats = [
   }
   
   .timeline::before {
-    left: 20px;
+    left: 25px;
   }
   
   .timeline-item {
-    padding-left: 60px;
+    padding-left: 70px;
+  }
+  
+  .timeline-logo {
+    width: 50px;
+    height: 50px;
+    padding-bottom: 12px;
+  }
+  
+  .timeline-logo img {
+    width: 30px;
+    height: 30px;
   }
   
   .timeline-year {
-    width: 40px;
-    height: 40px;
-    font-size: 12px;
+    width: 50px;
+    height: 12px;
+    font-size: 9px;
+    border-radius: 0 0 25px 25px;
+    background: linear-gradient(to top, #f6ffed, #d9f7be);
+    color: #237804;
+    border-top: 1px solid #b7eb8f;
   }
   
   .team-image {
@@ -984,6 +1009,15 @@ const stats = [
   .secondary-btn {
     width: 100%;
     max-width: 300px;
+  }
+
+  .contact-section {
+    padding: 60px 20px;
+  }
+
+  .contact-content {
+    padding: 40px 24px;
+    border-radius: 16px;
   }
 }
 
@@ -1007,6 +1041,23 @@ const stats = [
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 30px;
+  }
+
+  .contact-section {
+    padding: 40px 16px;
+  }
+
+  .contact-content {
+    padding: 32px 20px;
+    border-radius: 12px;
+  }
+
+  .contact-title {
+    font-size: 28px;
+  }
+
+  .contact-description {
+    font-size: 16px;
   }
 }
 </style>

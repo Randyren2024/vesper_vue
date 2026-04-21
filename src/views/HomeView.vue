@@ -189,29 +189,7 @@
       </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section class="stats-section" v-motion-fade-visible :delay="800">
-      <div class="section-container">
-        <div class="section-header" v-motion-slide-visible-bottom :delay="800">
-          <h2 class="section-title">Why Choose Us</h2>
-          <p class="section-subtitle">Our proven track record</p>
-        </div>
-        <div class="stats-grid">
-          <div 
-            v-for="(stat, index) in statItems" 
-            :key="index" 
-            class="stat-card"
-            v-motion
-            :initial="{ opacity: 0, y: 30 }"
-            :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 900 } }"
-          >
-            <div class="stat-icon">{{ stat.icon }}</div>
-            <h3 class="stat-title">{{ stat.title }}</h3>
-            <p class="stat-description">{{ stat.description }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
+
 
     <!-- Our Values -->
     <section class="values-section" v-motion-fade-visible :delay="900">
@@ -252,28 +230,7 @@ const current = ref<string[]>(['home'])
 const displayedCategories = categories
 const displayedProducts = getBestSellers().slice(0, 3)
 
-const statItems = [
-  {
-    icon: '🌱',
-    title: '10+ Years Experience',
-    description: 'Deep expertise in agricultural technology, continuously innovating since 2014.'
-  },
-  {
-    icon: '🚜',
-    title: 'Multiple Product Lines',
-    description: 'Comprehensive solutions covering precision agriculture, autonomous robots, and smart farming systems.'
-  },
-  {
-    icon: '🇦🇺',
-    title: 'Australia Market',
-    description: 'Headquartered in Australia, serving customers across Oceania and globally.'
-  },
-  {
-    icon: '🤝',
-    title: 'Global Partners',
-    description: 'Strong partnerships with leading international investors and distribution networks.'
-  }
-]
+
 
 const valueItems = [
   {
