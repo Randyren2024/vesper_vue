@@ -243,7 +243,7 @@
             <div class="contact-info-box">
               <p><strong>Vesper AgriTech</strong></p>
               <p>📧 Email: market@vesperinno.com</p>
-              <p>📞 Phone: +86 137 5500 6969</p>
+              <p>📞 Phone: +61 408 518 918</p>
               <p>📍 Location: Australia</p>
               <p class="contact-action">
                 <a-button type="primary" @click="$router.push('/contact')">Contact Us</a-button>
@@ -339,7 +339,10 @@ const openWhatsApp = () => {
 .hero-title {
   font-size: clamp(32px, 5vw, 48px);
   font-weight: 700;
-  color: white;
+  background: linear-gradient(135deg, #ffffff, #e6f7ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 16px;
 }
 

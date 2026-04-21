@@ -182,7 +182,7 @@
           </div>
           <div class="contact-info">
             <p class="contact-detail">📧 market@vesperinno.com</p>
-            <p class="contact-detail">📞 +86 137 5500 6969</p>
+            <p class="contact-detail">📞 +61 408 518 918</p>
             <p class="contact-detail">📍 Australia</p>
           </div>
         </div>
@@ -346,6 +346,10 @@ const values = [
 .hero-title {
   font-size: clamp(32px, 4vw, 48px);
   font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 20px;
   line-height: 1.2;
   max-width: 900px;
@@ -372,7 +376,10 @@ const values = [
 .section-title {
   font-size: clamp(28px, 3vw, 36px);
   font-weight: 700;
-  color: #2c3e50;
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 16px;
 }
 

@@ -258,7 +258,7 @@ const openWhatsApp = (customMessage?: string) => {
 
 // 电话联系
 const callPhone = () => {
-  window.open('tel:+8613755006969', '_blank')
+  window.open('tel:+61408518918', '_blank')
 }
 
 // 邮件联系
@@ -272,7 +272,7 @@ const contactCards = [
     icon: '📞',
     iconClass: 'phone',
     title: 'Phone',
-    content: '+86 137 5500 6969',
+    content: '+61 408 518 918',
     action: () => callPhone(),
     actionText: 'Call Now'
   },
@@ -288,7 +288,7 @@ const contactCards = [
     icon: '💬',
     iconClass: 'whatsapp',
     title: 'WhatsApp',
-    content: '+86 137 5500 6969',
+    content: '+61 408 518 918',
     action: () => openWhatsApp(),
     actionText: 'Message on WhatsApp'
   },
@@ -431,6 +431,10 @@ const dealerLocations: DealerLocation[] = [
 .hero-title {
   font-size: clamp(32px, 4vw, 48px);
   font-weight: 700;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 16px;
   line-height: 1.2;
 }
@@ -456,7 +460,10 @@ const dealerLocations: DealerLocation[] = [
 .section-title {
   font-size: clamp(28px, 3vw, 36px);
   font-weight: 700;
-  color: #2c3e50;
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 16px;
 }
 

@@ -166,7 +166,10 @@ const openWhatsApp = () => {
 .hero-title {
   font-size: clamp(32px, 4vw, 48px);
   font-weight: 700;
-  color: #2c3e50;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 16px;
 }
 

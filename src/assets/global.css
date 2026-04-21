@@ -63,6 +63,31 @@ code, pre {
   --radius-xl: 16px;
 }
 
+/* 渐变文字 */
+.gradient-text {
+  color: #2e7d32; /* 回退：品牌绿色 */
+}
+
+.gradient-text-secondary {
+  color: #2196f3; /* 回退：品牌蓝色 */
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .gradient-text-secondary {
+    background: var(--gradient-secondary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
 /* 通配符 - 应用全局字体 */
 * {
   box-sizing: border-box;

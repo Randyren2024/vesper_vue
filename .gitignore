@@ -3,3 +3,5 @@ dist/
 .DS_Store
 *.log
 public/images/DJI*.DNG
+# Local Netlify folder
+.netlify

@@ -272,7 +272,7 @@ const scrollToSpecs = () => {
 .product-info-section { padding: 20px 0; }
 .product-category-link { margin-bottom: 12px; }
 .product-category-link a { color: #52c41a; font-weight: 500; }
-.product-title { font-size: clamp(28px, 3vw, 36px); font-weight: 700; color: #2c3e50; margin-bottom: 16px; }
+.product-title { font-size: clamp(28px, 3vw, 36px); font-weight: 700; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 16px; }
 .product-description { font-size: 18px; color: #666; line-height: 1.6; margin-bottom: 24px; }
 .product-actions { display: flex; gap: 16px; margin-bottom: 32px; }
 .quote-btn { background: linear-gradient(135deg, #52c41a, #73d13d) !important; border: none !important; }
@@ -281,7 +281,7 @@ const scrollToSpecs = () => {
 .product-features-preview li { padding: 8px 0; color: #666; display: flex; align-items: center; gap: 8px; }
 
 .section-container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
-.section-title { font-size: 28px; font-weight: 700; color: #2c3e50; text-align: center; margin-bottom: 40px; }
+.section-title { font-size: 28px; font-weight: 700; background: var(--gradient-secondary); -webkit-background-clip: text; background-clip: text; color: transparent; text-align: center; margin-bottom: 40px; }
 
 /* Applications */
 .applications-section { background: white; }

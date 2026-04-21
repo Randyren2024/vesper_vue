@@ -26,10 +26,10 @@
         </div>
         
         <div class="support-cards">
-          <div class="support-card">
+           <div class="support-card">
             <div class="support-icon">📞</div>
             <h3>Phone Support</h3>
-            <p class="support-phone">+86 137 5500 6969</p>
+            <p class="support-phone">+61 408 518 918</p>
             <a-button type="primary" size="large" block @click="callPhone">Call Now</a-button>
           </div>
           
@@ -164,7 +164,7 @@ const router = useRouter()
 const activeKey = ref(['1'])
 
 const callPhone = () => {
-  window.location.href = 'tel:+8613755006969'
+  window.location.href = 'tel:+61408518918'
 }
 
 const openWhatsApp = () => {
@@ -221,7 +221,10 @@ const sendEmail = () => {
 .hero-title {
   font-size: clamp(32px, 5vw, 48px);
   font-weight: 700;
-  color: white;
+  background: linear-gradient(135deg, #ffffff, #e6f7ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 16px;
 }
 
@@ -246,7 +249,10 @@ const sendEmail = () => {
 .section-title {
   font-size: clamp(24px, 4vw, 36px);
   font-weight: 700;
-  color: #2c3e50;
+  background: var(--gradient-secondary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 12px;
 }
 
