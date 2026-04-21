@@ -147,22 +147,17 @@
     <!-- Statistics -->
     <section class="stats-section">
       <div class="section-container">
+        <div class="section-header">
+          <h2 class="section-title">Why Choose Us</h2>
+          <p class="section-subtitle">Our proven track record</p>
+        </div>
         <div class="stats-grid">
-          <div class="stat-item">
-            <div class="stat-number">10+</div>
-            <div class="stat-label">Years Experience</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">Multiple</div>
-            <div class="stat-label">Product Lines</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">Australia</div>
-            <div class="stat-label">Market Presence</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-number">Global</div>
-            <div class="stat-label">Investment Partners</div>
+          <div class="stat-card" v-for="(stat, index) in stats" :key="index">
+            <div class="stat-icon" :class="`stat-${index + 1}`">
+              {{ stat.icon }}
+            </div>
+            <h3 class="stat-title">{{ stat.title }}</h3>
+            <p class="stat-description">{{ stat.description }}</p>
           </div>
         </div>
       </div>
@@ -297,6 +292,30 @@ const values = [
     icon: '🌏',
     title: 'Localized Service',
     description: 'Building deep, localized service systems to truly serve global customers with complete solutions, not just products.'
+  }
+]
+
+// 公司业绩数据
+const stats = [
+  {
+    icon: '🌱',
+    title: '10+ Years Experience',
+    description: 'Deep expertise in agricultural technology, continuously innovating since 2014.'
+  },
+  {
+    icon: '🚜',
+    title: 'Multiple Product Lines',
+    description: 'Comprehensive solutions covering precision agriculture, autonomous robots, and smart farming systems.'
+  },
+  {
+    icon: '🇦🇺',
+    title: 'Australia Market',
+    description: 'Headquartered in Australia, serving customers across Oceania and globally.'
+  },
+  {
+    icon: '🤝',
+    title: 'Global Partners',
+    description: 'Strong partnerships with leading international investors and distribution networks.'
   }
 ]
 
@@ -615,72 +634,81 @@ const values = [
 /* Statistics Section */
 .stats-section {
   padding: 80px 0;
-  background: linear-gradient(135deg, #2c3e50, #1a252f);
+  background: #f8f9fa;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-title {
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-size: clamp(16px, 1.5vw, 18px);
+  color: #666;
 }
 
 .stats-grid {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px 20px;
   text-align: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.stat-item {
-  color: white;
-  flex: 1;
-  min-width: 200px;
-  padding: 20px;
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-.stat-number {
-  font-size: clamp(36px, 4vw, 48px);
-  font-weight: 700;
+.stat-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.stat-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
   margin-bottom: 12px;
-  color: #52c41a;
-  line-height: 1.2;
 }
 
-.stat-label {
-  font-size: clamp(16px, 1.5vw, 18px);
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
-  line-height: 1.4;
+.stat-description {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
 }
 
 /* 响应式调整 */
 @media (max-width: 1024px) {
   .stats-grid {
-    justify-content: center;
-  }
-  
-  .stat-item {
-    flex: 0 0 calc(50% - 20px);
-    max-width: calc(50% - 20px);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
   .stats-grid {
-    flex-direction: column;
-    gap: 30px;
+    grid-template-columns: 1fr;
+    max-width: 400px;
   }
   
-  .stat-item {
-    flex: 0 0 100%;
-    max-width: 100%;
-    padding: 15px;
-  }
-  
-  .stat-number {
-    font-size: 40px;
-  }
-  
-  .stat-label {
-    font-size: 16px;
+  .stat-card {
+    padding: 24px 16px;
   }
 }
 

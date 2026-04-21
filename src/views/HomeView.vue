@@ -189,19 +189,50 @@
       </div>
     </section>
 
-    <!-- 统计数据 -->
-    <section class="stats-section" v-motion-fade-visible :delay="800">
-      <div class="stats-container">
-        <div 
-          v-for="(stat, index) in statItems" 
-          :key="index" 
-          class="stat-item"
-          v-motion
-          :initial="{ opacity: 0, y: 30 }"
-          :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 900 } }"
-        >
-          <div class="stat-number">{{ stat.number }}</div>
-          <div class="stat-label">{{ stat.label }}</div>
+    <!-- Why Choose Us -->
+    <section class="why-choose-section" v-motion-fade-visible :delay="800">
+      <div class="section-container">
+        <div class="section-header" v-motion-slide-visible-bottom :delay="800">
+          <h2 class="section-title">Why Choose Us</h2>
+          <p class="section-subtitle">Our proven track record</p>
+        </div>
+        <div class="stats-grid">
+          <div 
+            v-for="(stat, index) in statItems" 
+            :key="index" 
+            class="stat-card"
+            v-motion
+            :initial="{ opacity: 0, y: 30 }"
+            :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 900 } }"
+          >
+            <div class="stat-icon">{{ stat.icon }}</div>
+            <h3 class="stat-title">{{ stat.title }}</h3>
+            <p class="stat-description">{{ stat.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Values -->
+    <section class="values-section" v-motion-fade-visible :delay="900">
+      <div class="section-container">
+        <div class="section-header" v-motion-slide-visible-bottom :delay="900">
+          <h2 class="section-title">Our Values</h2>
+          <p class="section-subtitle">What drives us forward</p>
+        </div>
+        <div class="values-grid">
+          <div 
+            v-for="(value, index) in valueItems" 
+            :key="index" 
+            class="value-card"
+            v-motion
+            :initial="{ opacity: 0, y: 30 }"
+            :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 1000 } }"
+          >
+            <div class="value-icon">{{ value.icon }}</div>
+            <h3 class="value-title">{{ value.title }}</h3>
+            <p class="value-description">{{ value.description }}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -224,10 +255,49 @@ const displayedCategories = categories
 const displayedProducts = getBestSellers().slice(0, 3)
 
 const statItems = [
-  { number: '10+', label: 'Years Experience' },
-  { number: 'Multiple', label: 'Product Lines' },
-  { number: 'Australia', label: 'Market Presence' },
-  { number: 'Global', label: 'Investment Partners' }
+  {
+    icon: '🌱',
+    title: '10+ Years Experience',
+    description: 'Deep expertise in agricultural technology, continuously innovating since 2014.'
+  },
+  {
+    icon: '🚜',
+    title: 'Multiple Product Lines',
+    description: 'Comprehensive solutions covering precision agriculture, autonomous robots, and smart farming systems.'
+  },
+  {
+    icon: '🇦🇺',
+    title: 'Australia Market',
+    description: 'Headquartered in Australia, serving customers across Oceania and globally.'
+  },
+  {
+    icon: '🤝',
+    title: 'Global Partners',
+    description: 'Strong partnerships with leading international investors and distribution networks.'
+  }
+]
+
+const valueItems = [
+  {
+    icon: '⚡',
+    title: 'Technical Excellence',
+    description: 'Maintaining the highest standards in product selection and technical validation, ensuring every solution meets rigorous quality benchmarks.'
+  },
+  {
+    icon: '🤝',
+    title: 'Customer Partnership',
+    description: 'Viewing clients as long-term partners, providing comprehensive support from product selection to after-sales service.'
+  },
+  {
+    icon: '📊',
+    title: 'Market Intelligence',
+    description: 'Deep understanding of both Chinese manufacturing capabilities and global market needs for optimal product-market fit.'
+  },
+  {
+    icon: '🌏',
+    title: 'Localized Service',
+    description: 'Building deep, localized service systems to truly serve global customers with complete solutions, not just products.'
+  }
 ]
 
 const categoryImages: Record<string, string> = {
@@ -982,61 +1052,126 @@ onUnmounted(() => {
   height: 40px;
 }
 
-/* 统计数据 - 改进响应式 */
-.stats-section {
-  padding: clamp(40px, 4vw, 60px) clamp(16px, 3vw, 24px);
-  background: linear-gradient(135deg, #2c3e50, #1a252f);
+/* Why Choose Us Section */
+.why-choose-section {
+  padding: clamp(60px, 5vw, 80px) clamp(16px, 3vw, 24px);
+  background: #f8f9fa;
 }
 
-.stats-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(24px, 3vw, 40px);
+.section-container {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+
+.section-title {
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: clamp(12px, 1.5vw, 16px);
+}
+
+.section-subtitle {
+  font-size: clamp(16px, 1.5vw, 18px);
+  color: #666;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.stat-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.stat-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 12px;
+}
+
+.stat-description {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Our Values Section */
+.values-section {
+  padding: clamp(60px, 5vw, 80px) clamp(16px, 3vw, 24px);
+  background: white;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.value-card {
+  padding: 24px 16px;
   text-align: center;
 }
 
-.stat-item {
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0 10px;
+.value-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
 }
 
-.stat-number {
-  font-size: clamp(36px, 4vw, 48px);
-  font-weight: 700;
-  margin-bottom: clamp(6px, 0.8vw, 8px);
-  color: #52c41a;
-  line-height: 1.1;
+.value-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 12px;
 }
 
-.stat-label {
-  font-size: clamp(14px, 1.2vw, 16px);
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.3;
-  max-width: 200px;
+.value-description {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
 }
 
 /* 响应式调整 */
 @media (max-width: 1024px) {
-  .stats-container {
+  .stats-grid,
+  .values-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: clamp(20px, 2.5vw, 30px);
   }
 }
 
-@media (max-width: 640px) {
-  .stats-container {
+@media (max-width: 768px) {
+  .stats-grid,
+  .values-grid {
     grid-template-columns: 1fr;
-    gap: clamp(16px, 2vw, 24px);
+    max-width: 400px;
+    margin: 0 auto;
   }
   
-  .stat-number {
-    font-size: clamp(32px, 3.5vw, 40px);
+  .stat-card,
+  .value-card {
+    padding: 24px 16px;
   }
 }
 
