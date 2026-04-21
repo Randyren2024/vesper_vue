@@ -473,16 +473,16 @@ const dealerLocations: DealerLocation[] = [
 
 .contact-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  max-width: 1000px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .contact-card {
   background: white;
   border-radius: 12px;
-  padding: 30px;
+  padding: 24px 16px;
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -808,8 +808,8 @@ const dealerLocations: DealerLocation[] = [
   }
   
   .contact-cards {
-    grid-template-columns: 1fr;
-    max-width: 400px;
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 500px;
   }
 }
 
@@ -824,6 +824,29 @@ const dealerLocations: DealerLocation[] = [
   
   .section-title {
     font-size: 20px;
+  }
+  
+  .contact-cards {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+  }
+  
+  .contact-card {
+    padding: 20px;
+  }
+  
+  .contact-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+  
+  .contact-card-title {
+    font-size: 16px;
+  }
+  
+  .contact-card-content {
+    font-size: 14px;
   }
   
   .submit-btn {
