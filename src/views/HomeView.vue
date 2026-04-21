@@ -204,7 +204,7 @@
           :initial="{ opacity: 0, y: 30 }"
           :enter="{ opacity: 1, y: 0, transition: { delay: index * 100 + 900 } }"
         >
-          <div class="stat-icon" :class="`stat-${index + 1}`">{{ stat.icon }}</div>
+          <div class="stat-icon">{{ stat.icon }}</div>
           <h3 class="stat-title">{{ stat.title }}</h3>
           <p class="stat-description">{{ stat.description }}</p>
         </div>
@@ -1073,8 +1073,8 @@ onUnmounted(() => {
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -1082,32 +1082,21 @@ onUnmounted(() => {
 .stat-card {
   background: white;
   border-radius: 12px;
-  padding: 40px 20px;
+  padding: 30px 20px;
   text-align: center;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .stat-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 .stat-icon {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
+  font-size: 40px;
+  margin-bottom: 16px;
 }
-
-.stat-1 { background: linear-gradient(135deg, #b7eb8f, #95de64); }
-.stat-2 { background: linear-gradient(135deg, #91d5ff, #69c0ff); }
-.stat-3 { background: linear-gradient(135deg, #ffd666, #ffc53d); }
-.stat-4 { background: linear-gradient(135deg, #d3adf7, #b37feb); }
 
 .stat-title {
   font-size: 20px;
