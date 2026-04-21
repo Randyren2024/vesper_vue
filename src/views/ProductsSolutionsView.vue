@@ -379,10 +379,12 @@ const handleFooterLogoError = (event: Event) => {
   gap: 8px;
   margin-top: 16px;
   padding-bottom: 8px;
+  margin-bottom: 16px;
 }
 
 .product-actions :deep(.ant-btn) {
   flex: 1;
+  height: 40px;
 }
 
 /* CTA Section */

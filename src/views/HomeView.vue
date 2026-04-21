@@ -30,8 +30,7 @@
           enhancing farming efficiency and sustainability through intelligent technology
         </p>
         <div class="hero-actions" v-motion-slide-visible-bottom :delay="300">
-          <a-button type="primary" size="large" class="primary-btn" @click="$router.push('/products-solutions')">Explore Solutions</a-button>
-          <a-button size="large" class="secondary-btn" @click="$router.push('/products-solutions')">View Products</a-button>
+          <a-button type="primary" size="large" class="primary-btn" @click="$router.push('/products-solutions')">Explore Products & Solutions</a-button>
         </div>
       </div>
       
@@ -947,16 +946,15 @@ onUnmounted(() => {
   display: flex;
   gap: 8px;
   margin-top: 16px;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
   flex-wrap: wrap;
   justify-content: stretch;
 }
 
 .product-actions :deep(.ant-btn) {
   flex: 1;
-  min-width: 100px;
-  font-size: clamp(12px, 1vw, 14px);
-  padding: 4px 16px;
-  white-space: nowrap;
+  height: 40px;
 }
 
 /* 统计数据 - 改进响应式 */
