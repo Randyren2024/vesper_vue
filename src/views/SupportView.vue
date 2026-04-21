@@ -40,10 +40,10 @@
             <a-button type="primary" size="large" block @click="openWhatsApp">Message on WhatsApp</a-button>
           </div>
           
-          <div class="support-card">
+            <div class="support-card">
             <div class="support-icon">📧</div>
             <h3>Email Support</h3>
-            <p class="support-phone">support@vesperinno.com</p>
+            <p class="support-phone">market@vesperinno.com</p>
             <a-button type="primary" size="large" block @click="sendEmail">Send Email</a-button>
           </div>
         </div>
@@ -175,7 +175,7 @@ const openWhatsApp = () => {
 }
 
 const sendEmail = () => {
-  window.location.href = 'mailto:support@vesperinno.com?subject=Technical Support Request'
+  window.location.href = 'mailto:market@vesperinno.com?subject=Technical Support Request'
 }
 </script>
 
