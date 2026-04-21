@@ -250,8 +250,8 @@ const copyrightYear = (() => {
 
 // WhatsApp联系
 const openWhatsApp = (customMessage?: string) => {
-  const phoneNumber = '8613755006969'
-  const message = customMessage || 'Hello! I would like to get more information about Vesper AgriTech products.'
+  const phoneNumber = '61448290926'
+  const message = customMessage || 'Hello! I would like to get in touch with Vesper AgriTech.'
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')
 }

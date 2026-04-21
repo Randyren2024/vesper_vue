@@ -296,7 +296,7 @@ const copyrightYear = (() => {
 
 // 打开WhatsApp联系
 const openWhatsApp = () => {
-  const phoneNumber = '8613755006969'
+  const phoneNumber = '61448290926'
   const message = 'Hello! I would like to request a demo of Vesper AgriTech products.'
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')
@@ -304,7 +304,7 @@ const openWhatsApp = () => {
 
 // 为特定产品打开WhatsApp获取报价
 const openWhatsAppForProduct = (productName: string) => {
-  const phoneNumber = '8613755006969'
+  const phoneNumber = '61448290926'
   const message = `Hello! I'm interested in getting a quote for the ${productName}. Could you please provide more information?`
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')

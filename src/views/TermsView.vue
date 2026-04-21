@@ -312,8 +312,8 @@ const handleFooterLogoError = (event: Event) => {
 
 // WhatsApp联系
 const openWhatsApp = () => {
-  const phoneNumber = '8613755006969'
-  const message = 'Hello! I would like to know more about Vesper AgriTech terms and conditions.'
+  const phoneNumber = '61448290926'
+  const message = 'Hello! I would like to request a demo of Vesper AgriTech products.'
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')
 }

@@ -82,7 +82,7 @@ const handleFooterLogoError = (event: Event) => {
 }
 
 const openWhatsApp = () => {
-  const phoneNumber = '8613755006969'
+  const phoneNumber = '61448290926'
   const message = 'Hello! I would like to request a demo of Vesper AgriTech solutions.'
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')

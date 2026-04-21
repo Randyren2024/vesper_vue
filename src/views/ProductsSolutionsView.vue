@@ -158,18 +158,20 @@ const filteredProducts = computed(() => {
 })
 
 const openWhatsApp = () => {
-  const phoneNumber = '8613755006969'
-  const message = 'Hello! I would like to learn more about Vesper AgriTech products and solutions.'
+  const phoneNumber = '61448290926'
+  const message = 'Hello! I would like to request a demo of Vesper AgriTech products.'
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')
 }
 
 const openWhatsAppForProduct = (product: Product) => {
-  const phoneNumber = '8613755006969'
-  const message = `Hello! I'm interested in ${product.name} (${product.code}). Could you please provide more information?`
+  const phoneNumber = '61448290926'
+  const message = `Hello! I'm interested in getting a quote for the ${product.name} (${product.code}). Could you please provide more information?`
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')
 }
+
+
 
 const handleLogoError = (event: Event) => {
   const img = event.target as HTMLImageElement

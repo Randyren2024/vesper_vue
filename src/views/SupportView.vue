@@ -168,8 +168,8 @@ const callPhone = () => {
 }
 
 const openWhatsApp = () => {
-  const phoneNumber = '8613755006969'
-  const message = 'Hello! I need technical support for my Vesper AgriTech product.'
+  const phoneNumber = '61448290926'
+  const message = 'Hello! I need support with Vesper AgriTech products.'
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')
 }

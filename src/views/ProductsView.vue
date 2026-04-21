@@ -121,8 +121,8 @@ const handleFooterLogoError = (event: Event) => {
 }
 
 const openWhatsApp = (product: Product) => {
-  const phoneNumber = '8613755006969'
-  const message = `Hi, I'm interested in ${product.code} ${product.name}. Could you please provide more information?`
+  const phoneNumber = '61448290926'
+  const message = `Hello! I'm interested in getting a quote for the ${product.name} (${product.code}). Could you please provide more information?`
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')
 }

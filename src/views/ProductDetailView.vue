@@ -239,16 +239,14 @@ const handleLogoError = (event: Event) => { logoError.value = true }
 const handleFooterLogoError = (event: Event) => { footerLogoError.value = true }
 
 const openWhatsAppDemo = () => {
-  if (!product.value) return
-  const message = `Hi, I would like to request a demo for ${product.value.code} ${product.value.name}. What are the available demo options?`
-  const whatsappUrl = `https://wa.me/8613755006969?text=${encodeURIComponent(message)}`
+  const message = `Hello! I would like to request a demo of the ${product.value.code} ${product.value.name}.`
+  const whatsappUrl = `https://wa.me/61448290926?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')
 }
 
 const openWhatsApp = () => {
-  if (!product.value) return
-  const message = `Hi, I'm interested in ${product.value.code} ${product.value.name}. Could you please provide more information?`
-  const whatsappUrl = `https://wa.me/8613755006969?text=${encodeURIComponent(message)}`
+  const message = `Hello! I'm interested in getting a quote for the ${product.value.code} ${product.value.name}. Could you please provide more information?`
+  const whatsappUrl = `https://wa.me/61448290926?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, '_blank')
 }
 
