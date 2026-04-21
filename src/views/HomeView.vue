@@ -620,7 +620,9 @@ onUnmounted(() => {
   border-radius: 20px;
   /* 移除 overflow: hidden，因为 object-fit: contain 不会溢出 */
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  background-color: #f5f7fa; /* 容器背景色，与图片背景一致 */
+  background: #f5f7fa; /* 回退颜色 */
+  background: -webkit-linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%); /* 农业主题渐变背景 */
+  background: linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%); /* 农业主题渐变背景 */
 }
 
 .carousel {
@@ -656,7 +658,12 @@ onUnmounted(() => {
   height: 100%;
   object-fit: contain; /* 显示完整图片，不裁剪 */
   object-position: 50% 50%; /* 精确居中 */
-  background-color: #f5f7fa; /* 添加浅色背景填充空白区域 */
+  background-color: #f5f7fa; /* 回退颜色 */
+  background-image: -webkit-linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%); /* 农业主题渐变背景 */
+  background-image: linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%); /* 农业主题渐变背景 */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   transition: transform 0.3s ease;
 }
 
