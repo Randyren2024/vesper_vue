@@ -36,7 +36,7 @@
           <div class="support-card">
             <div class="support-icon">💬</div>
             <h3>WhatsApp</h3>
-            <p class="support-phone">+86 137 5500 6969</p>
+            <p class="support-phone">+61 448 290 926</p>
             <a-button type="primary" size="large" block @click="openWhatsApp">Message on WhatsApp</a-button>
           </div>
           
