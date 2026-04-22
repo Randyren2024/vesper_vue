@@ -31,7 +31,7 @@
         </p>
         <div class="hero-actions">
           <a-button type="primary" size="large" class="primary-btn" @click="$router.push('/products-solutions')">
-            Explore Products
+            Explore Products & Solutions
           </a-button>
         </div>
       </div>
