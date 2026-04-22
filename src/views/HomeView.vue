@@ -22,94 +22,86 @@
     旧导航栏代码结束 -->
     
     <!-- 英雄区域 - 产品轮播图 -->
-    <section class="hero-section">
-      <div class="hero-content" v-motion-fade-visible>
-        <h1 class="hero-title" v-motion-slide-visible-bottom :delay="100">Smart Agriculture, Precision Future</h1>
-        <p class="hero-subtitle" v-motion-slide-visible-bottom :delay="200">
-          Vesper AgriTech provides advanced agricultural technology solutions,<br>
+    <section class="hero-section" v-motion-fade-visible>
+      <div class="hero-content" v-motion-slide-visible-bottom :delay="100">
+        <h1 class="hero-title">Smart Agriculture, Precision Future</h1>
+        <p class="hero-subtitle">
+          Vesper AgriTech provides advanced agricultural technology solutions,
           enhancing farming efficiency and sustainability through intelligent technology
         </p>
-        <div class="hero-actions" v-motion-slide-visible-bottom :delay="300">
-          <a-button type="primary" size="large" class="primary-btn" @click="$router.push('/products-solutions')">Explore Products & Solutions</a-button>
+        <div class="hero-actions">
+          <a-button type="primary" size="large" class="primary-btn" @click="$router.push('/products-solutions')">
+            Explore Products
+          </a-button>
         </div>
       </div>
-      
-      <div class="carousel-container">
-        <div class="carousel" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
-          <!-- 产品1: AF718 Autosteering System -->
-          <div class="carousel-slide" @click="$router.push('/product/af718')">
-            <div class="slide-content">
-              <div class="slide-image">
-                <img 
-                  src="/images/products/af718.webp" 
-                  alt="AF718 Autosteering System"
-                  class="slide-img"
-                  @error="(e) => e.target.src = images.fallback.carousel[0]"
-                />
-                <div class="slide-overlay">
-                  <div class="product-tag">AF718</div>
-                  <h2 class="slide-title">Autosteering System</h2>
-                  <p class="slide-description">High-performance autosteering with ±2.5 cm accuracy for precision agriculture</p>
-                </div>
-              </div>
+
+      <div class="carousel-wrapper">
+        <div class="carousel-info">
+          <transition name="fade-slide" mode="out-in">
+            <div :key="currentSlide" class="info-content">
+              <span class="product-tag">{{ carouselProducts[currentSlide].tag }}</span>
+              <h2 class="info-title">{{ carouselProducts[currentSlide].title }}</h2>
+              <p class="info-description">{{ carouselProducts[currentSlide].description }}</p>
+              <a-button type="primary" @click="$router.push(carouselProducts[currentSlide].link)">
+                Learn More
+              </a-button>
             </div>
-          </div>
-          
-          <!-- 产品2: Aries300N Orchard Spraying Robot -->
-          <div class="carousel-slide" @click="$router.push('/product/aries300n')">
-            <div class="slide-content">
-              <div class="slide-image">
-                <img 
-                  src="/images/products/300n.webp" 
-                  alt="Aries300N Orchard Spraying Robot"
-                  class="slide-img"
-                  @error="(e) => e.target.src = images.fallback.carousel[1]"
-                />
-                <div class="slide-overlay">
-                  <div class="product-tag">Aries300N</div>
-                  <h2 class="slide-title">Orchard Spraying Robot</h2>
-                  <p class="slide-description">Autonomous hybrid-powered sprayer, reduces pesticide usage by 40%</p>
-                </div>
-              </div>
+          </transition>
+
+          <div class="carousel-controls">
+            <button
+              class="control-btn"
+              @click="prevSlide"
+              :aria-label="'Previous: ' + carouselProducts[(currentSlide - 1 + 3) % 3].title"
+            >
+              <span class="control-icon">‹</span>
+            </button>
+            <div class="carousel-dots" role="tablist" :aria-label="'Product slides'">
+              <button
+                v-for="(product, index) in carouselProducts"
+                :key="index"
+                class="dot"
+                :class="{ active: currentSlide === index }"
+                role="tab"
+                :aria-selected="currentSlide === index"
+                :aria-label="product.title"
+                @click="goToSlide(index)"
+              ></button>
             </div>
-          </div>
-          
-          <!-- 产品3: Taurus80E Smart Lawn Mowing Robot -->
-          <div class="carousel-slide" @click="$router.push('/product/taurus80e')">
-            <div class="slide-content">
-              <div class="slide-image">
-                <img 
-                  src="/images/products/80e-1.webp" 
-                  alt="Taurus80E Smart Lawn Mowing Robot"
-                  class="slide-img"
-                  @error="(e) => e.target.src = images.fallback.carousel[2]"
-                />
-                <div class="slide-overlay">
-                  <div class="product-tag">Taurus80E</div>
-                  <h2 class="slide-title">Smart Lawn Mowing Robot</h2>
-                  <p class="slide-description">Professional autonomous mower with 24/7 capability and slope handling</p>
-                </div>
-              </div>
-            </div>
+            <button
+              class="control-btn"
+              @click="nextSlide"
+              :aria-label="'Next: ' + carouselProducts[(currentSlide + 1) % 3].title"
+            >
+              <span class="control-icon">›</span>
+            </button>
           </div>
         </div>
-        
-        <!-- 轮播控制 -->
-        <div class="carousel-controls">
-          <button class="control-btn prev" @click="prevSlide">
-            <span class="control-icon">‹</span>
-          </button>
-          <div class="carousel-dots">
-            <button 
-              v-for="(_, index) in 3" 
-              :key="index"
-              class="dot" 
-              :class="{ active: currentSlide === index }"
-              @click="goToSlide(index)"
-            ></button>
-          </div>
-          <button class="control-btn next" @click="nextSlide">
-            <span class="control-icon">›</span>
+
+        <div
+          class="carousel-image"
+          role="region"
+          aria-label="Product showcase carousel"
+          @touchstart="handleTouchStart"
+          @touchend="handleTouchEnd"
+          @keydown="handleKeydown"
+          tabindex="0"
+        >
+          <transition name="fade" mode="out-in">
+            <img
+              :key="currentSlide"
+              :src="carouselProducts[currentSlide].image"
+              :alt="carouselProducts[currentSlide].imageAlt"
+              @error="(e) => e.target.src = images.fallback.carousel[currentSlide]"
+            />
+          </transition>
+          <button
+            class="play-pause-btn"
+            @click="toggleAutoPlay"
+            :aria-label="isPlaying ? 'Pause slideshow' : 'Play slideshow'"
+          >
+            {{ isPlaying ? '⏸' : '▶' }}
           </button>
         </div>
       </div>
@@ -286,28 +278,58 @@ const images = {
   },
   fallback: {
     carousel: [
-      '/images/3U9A0093.jpg',
-      '/images/pexels-nc-farm-bureau-mark-2889442.jpg',
-      '/images/harvest-1543064.jpg'
+      '/images/3U9A0093.webp',
+      '/images/pexels-nc-farm-bureau-mark-2889442.webp',
+      '/images/harvest-1543064.webp'
     ],
     solutions: {
-      precision: '/images/pexels-nc-farm-bureau-mark-26256448.jpg',
-      robotics: '/images/3U9A0093.jpg',
-      iot: '/images/agriculture-6502282.jpg',
-      data: '/images/sunrise-8218442.jpg',
-      spraying: '/images/agriculture-6502282.jpg',
-      'land-leveling': '/images/pexels-wolfgang-weiser-467045605-34239949.jpg',
-      'machine-control': '/images/pexels-vladimirsrajber-18431208.jpg'
+      precision: '/images/pexels-nc-farm-bureau-mark-26256448.webp',
+      robotics: '/images/3U9A0093.webp',
+      iot: '/images/agriculture-6502282.webp',
+      data: '/images/sunrise-8218442.webp',
+      spraying: '/images/agriculture-6502282.webp',
+      'land-leveling': '/images/pexels-wolfgang-weiser-467045605-34239949.webp',
+      'machine-control': '/images/pexels-vladimirsrajber-18431208.webp'
     },
     products: {
-      sm200: '/images/agriculture-6502282.jpg',
-      ar300: '/images/harvest-1543064.jpg',
-      vg100: '/images/3U9A0093.jpg'
+      sm200: '/images/agriculture-6502282.webp',
+      ar300: '/images/harvest-1543064.webp',
+      vg100: '/images/3U9A0093.webp'
     }
   }
 }
 const currentSlide = ref(0)
 const autoPlayInterval = ref<NodeJS.Timeout | null>(null)
+const isPlaying = ref(true)
+const touchStartX = ref(0)
+const touchEndX = ref(0)
+
+const carouselProducts = [
+  {
+    tag: 'AF718',
+    title: 'Autosteering System',
+    description: 'High-performance autosteering with ±2.5 cm accuracy for precision agriculture',
+    image: '/images/products/af718.webp',
+    imageAlt: 'AF718 Autosteering System',
+    link: '/product/af718'
+  },
+  {
+    tag: 'Aries300N',
+    title: 'Orchard Spraying Robot',
+    description: 'Autonomous hybrid-powered sprayer, reduces pesticide usage by 40%',
+    image: '/images/products/300n.webp',
+    imageAlt: 'Aries300N Orchard Spraying Robot',
+    link: '/product/aries300n'
+  },
+  {
+    tag: 'Taurus80E',
+    title: 'Smart Lawn Mowing Robot',
+    description: 'Professional autonomous mower with 24/7 capability and slope handling',
+    image: '/images/products/80e-1.webp',
+    imageAlt: 'Taurus80E Smart Lawn Mowing Robot',
+    link: '/product/taurus80e'
+  }
+]
 
 // 版权年份 - 显示起始年份到当前年份
 const copyrightYear = (() => {
@@ -376,15 +398,24 @@ const handleFooterLogoError = (event: Event) => {
 }
 
 const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % 3
+  currentSlide.value = (currentSlide.value + 1) % carouselProducts.length
 }
 
 const prevSlide = () => {
-  currentSlide.value = (currentSlide.value - 1 + 3) % 3
+  currentSlide.value = (currentSlide.value - 1 + carouselProducts.length) % carouselProducts.length
 }
 
 const goToSlide = (index: number) => {
   currentSlide.value = index
+}
+
+const toggleAutoPlay = () => {
+  if (isPlaying.value) {
+    stopAutoPlay()
+  } else {
+    startAutoPlay()
+  }
+  isPlaying.value = !isPlaying.value
 }
 
 const startAutoPlay = () => {
@@ -400,6 +431,30 @@ const stopAutoPlay = () => {
   if (autoPlayInterval.value) {
     clearInterval(autoPlayInterval.value)
     autoPlayInterval.value = null
+  }
+}
+
+const handleTouchStart = (e: TouchEvent) => {
+  touchStartX.value = e.touches[0].clientX
+}
+
+const handleTouchEnd = (e: TouchEvent) => {
+  touchEndX.value = e.changedTouches[0].clientX
+  const diff = touchStartX.value - touchEndX.value
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) {
+      nextSlide()
+    } else {
+      prevSlide()
+    }
+  }
+}
+
+const handleKeydown = (e: KeyboardEvent) => {
+  if (e.key === 'ArrowLeft') {
+    prevSlide()
+  } else if (e.key === 'ArrowRight') {
+    nextSlide()
   }
 }
 
@@ -553,8 +608,7 @@ onUnmounted(() => {
 .hero-section {
   background: linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%);
   padding: clamp(40px, 5vw, 80px) clamp(16px, 3vw, 24px);
-  /* 全宽设计 - 移除最大宽度限制 */
-  scroll-margin-top: 100px; /* 当滚动到hero section时，为固定的header留出空间 */
+  scroll-margin-top: 100px;
 }
 
 .hero-content {
@@ -602,82 +656,84 @@ onUnmounted(() => {
   font-size: clamp(14px, 1.1vw, 16px);
 }
 
-.secondary-btn {
-  border-color: #52c41a;
-  color: #52c41a;
-  padding: 0 clamp(20px, 2.5vw, 32px);
-  height: clamp(40px, 4vw, 48px);
-  font-size: clamp(14px, 1.1vw, 16px);
-}
-
-/* 轮播图样式 */
-.carousel-container {
-  position: relative;
-  width: 100%;
+/* 轮播图新布局 */
+.carousel-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(24px, 4vw, 48px);
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 20px;
-  /* 移除 overflow: hidden，因为 object-fit: contain 不会溢出 */
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  background: #f5f7fa; /* 回退颜色 */
-  background: -webkit-linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%); /* 农业主题渐变背景 */
-  background: linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%); /* 农业主题渐变背景 */
+  margin: 0 auto;
+  align-items: center;
 }
 
-.carousel {
+.carousel-info {
   display: flex;
-  transition: transform 0.5s ease;
-  height: clamp(280px, 35vw, 450px); /* 降低高度，显示更多图片宽度 */
+  flex-direction: column;
+  gap: 24px;
 }
 
-.carousel-slide {
-  min-width: 100%;
-  height: 100%;
-  cursor: pointer;
+.info-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.slide-content {
-  height: 100%;
+.info-title {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 700;
+  color: #2c3e50;
+  line-height: 1.2;
+}
+
+.info-description {
+  font-size: clamp(16px, 1.5vw, 18px);
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.carousel-image {
   position: relative;
-}
-
-.slide-image {
-  position: relative;
-  height: 100%;
-  width: 100%;
+  border-radius: 20px;
   overflow: hidden;
-  /* 移除 border-radius，因为容器已经有圆角 */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  background: #f5f7fa;
+  aspect-ratio: 4 / 3;
+}
+
+.carousel-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-image:focus {
+  outline: 2px solid #52c41a;
+  outline-offset: 4px;
+}
+
+.play-pause-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f7fa; /* 回退颜色 */
-  background: -webkit-linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%); /* 农业主题渐变背景 */
-  background: linear-gradient(135deg, #f6ffed 0%, #e6f7ff 100%); /* 农业主题渐变背景 */
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
 }
 
-.slide-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* 显示完整图片，不裁剪 */
-  object-position: 50% 50%; /* 精确居中 */
-  transition: transform 0.3s ease;
-}
-
-/* 悬停时轻微放大 */
-.carousel-slide:hover .slide-img {
-  transform: scale(1.05);
-}
-
-.slide-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+.play-pause-btn:hover {
+  background: #52c41a;
   color: white;
-  padding: clamp(20px, 4vw, 40px);
-  padding-top: clamp(60px, 10vw, 120px);
+  transform: scale(1.1);
 }
 
 .product-tag {
@@ -688,56 +744,34 @@ onUnmounted(() => {
   border-radius: 20px;
   font-size: clamp(12px, 1.2vw, 14px);
   font-weight: 600;
-  margin-bottom: clamp(8px, 1vw, 16px);
-  backdrop-filter: blur(4px);
-}
-
-.slide-title {
-  font-size: clamp(24px, 3vw, 32px);
-  font-weight: 700;
-  margin-bottom: 12px;
-  line-height: 1.3;
-}
-
-.slide-description {
-  font-size: clamp(16px, 1.5vw, 18px);
-  opacity: 0.9;
-  line-height: 1.5;
-  max-width: 600px;
+  align-self: flex-start;
 }
 
 /* 轮播控制 */
 .carousel-controls {
-  position: absolute;
-  bottom: 40px; /* 增加底部距离，避免遮挡描述文字 */
-  left: 0;
-  right: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 20px;
-  z-index: 10;
+  gap: 16px;
 }
 
 .control-btn {
-  background: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  color: white;
-  width: 50px;
-  height: 50px;
+  background: white;
+  border: 2px solid #e8e8e8;
+  color: #666;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(4px);
 }
 
 .control-btn:hover {
-  background: rgba(82, 196, 26, 0.8);
+  background: #52c41a;
   border-color: #52c41a;
-  transform: scale(1.1);
+  color: white;
 }
 
 .control-icon {
@@ -748,14 +782,14 @@ onUnmounted(() => {
 
 .carousel-dots {
   display: flex;
-  gap: 12px;
+  gap: 10px;
 }
 
 .dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
+  background: #e8e8e8;
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -764,55 +798,72 @@ onUnmounted(() => {
 
 .dot.active {
   background: #52c41a;
-  transform: scale(1.2);
+  transform: scale(1.3);
 }
 
-.dot:hover {
-  background: rgba(82, 196, 26, 0.8);
+/* 过渡动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.4s ease;
+}
+
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateX(20px);
 }
 
 /* 响应式调整 */
-@media (max-width: 768px) {
-  .carousel {
-    height: 400px;
+@media (max-width: 900px) {
+  .carousel-wrapper {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
-  
-  .slide-overlay {
-    padding: 24px;
-    padding-top: 60px;
+
+  .carousel-image {
+    order: -1;
+    aspect-ratio: 16 / 9;
   }
-  
-  .slide-title {
-    font-size: 20px;
+
+  .carousel-info {
+    text-align: center;
+    align-items: center;
   }
-  
-  .slide-description {
-    font-size: 14px;
-  }
-  
-  .control-btn {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .control-icon {
-    font-size: 20px;
+
+  .product-tag {
+    align-self: center;
   }
 }
 
 @media (max-width: 480px) {
-  .carousel {
-    height: 300px;
+  .carousel-image {
+    border-radius: 12px;
   }
-  
-  .slide-overlay {
-    padding: 16px;
-    padding-top: 40px;
+
+  .control-btn {
+    width: 40px;
+    height: 40px;
   }
-  
-  .product-tag {
-    padding: 6px 12px;
-    font-size: 12px;
+
+  .play-pause-btn {
+    width: 40px;
+    height: 40px;
+    top: 12px;
+    right: 12px;
   }
 }
 

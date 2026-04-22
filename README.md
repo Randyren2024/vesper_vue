@@ -4,19 +4,23 @@ MVP website for agricultural technology products built with Vue 3 + TypeScript +
 
 ## Tech Stack
 
-- **Vue 3** - Frontend framework
+- **Vue 3** - Frontend framework with Composition API
 - **TypeScript** - Type safety
 - **Ant Design Vue** - UI component library
 - **Vite** - Build tool
-- **Roboto font** - Primary font
+- **vueuse** - Composition utilities
+- **Noto Sans** - Primary font
 
 ## Features
 
-1. **Modern Design** - Professional agricultural technology website design
+1. **Modern Design** - Professional agricultural technology website
 2. **Vesper Brand Style** - Custom green theme color scheme
 3. **Responsive Layout** - Adapts to various screen sizes
 4. **Component-based Development** - Reusable component structure
 5. **TypeScript Support** - Complete type definitions
+6. **Accessibility** - ARIA labels, keyboard navigation
+7. **Touch Support** - Swipe gestures on carousel
+8. **Motion Animations** - Entrance animations using v-motion directives
 
 ## Vesper Brand Colors
 
@@ -30,23 +34,27 @@ MVP website for agricultural technology products built with Vue 3 + TypeScript +
 ```
 vesper_vue/
 ├── src/
-│   ├── components/     # Reusable components
-│   │   ├── ProductCard.vue
-│   │   └── SolutionCard.vue
-│   ├── views/         # Page components
-│   │   └── HomeView.vue
-│   ├── router/        # Routing configuration
-│   │   └── index.ts
-│   ├── assets/        # Static assets
+│   ├── components/        # Reusable components
+│   │   ├── Header.vue
+│   │   └── Footer.vue
+│   ├── views/             # Page components
+│   │   ├── HomeView.vue
+│   │   ├── AboutView.vue
+│   │   ├── ContactView.vue
+│   │   └── ...
+│   ├── router/           # Routing configuration
+│   ├── data/             # Static data (products, categories)
+│   ├── assets/           # Static assets
 │   │   └── global.css
-│   ├── App.vue        # Root component
-│   └── main.ts        # Application entry
-├── public/            # Public resources
-├── index.html         # HTML template
-├── package.json       # Dependency configuration
-├── vite.config.ts     # Vite configuration
-├── tsconfig.json      # TypeScript configuration
-└── README.md          # Project documentation
+│   ├── App.vue           # Root component
+│   └── main.ts           # Application entry
+├── public/
+│   └── images/           # Public images
+├── index.html
+├── package.json
+├── vite.config.ts
+├── tsconfig.json
+└── README.md
 ```
 
 ## Quick Start
@@ -75,53 +83,51 @@ npm run preview
 ## Main Features
 
 ### 1. Navigation Bar
-- Vesper brand identity
-- Responsive menu
-- Request demo button
+- Vesper brand identity with logo
+- Responsive menu with route highlighting
+- Request demo button (WhatsApp integration)
 
 ### 2. Hero Section
-- Brand slogan
-- Primary call-to-action buttons
-- Visual showcase area
+- Brand slogan with gradient text
+- Interactive product carousel with:
+  - Smooth slide transitions
+  - Touch/swipe support
+  - Keyboard navigation (arrow keys)
+  - Play/pause controls
+  - Auto-advance with 5s interval
+- Product info cards with tags
 
-### 3. Solutions Showcase
-- Precision Agriculture System
-- Agricultural Robots
-- IoT Monitoring
-- Data Analytics Platform
+### 3. Products & Solutions Showcase
+- Category cards: Precision Agriculture, Agricultural Robotics, IoT Monitoring, Data Analytics, etc.
+- Product cards with hover effects
+- Best sellers highlight section
 
-### 4. Products Display
-- VG-100 Intelligent Navigation System
-- AR-300 Orchard Spraying Robot
-- SM-200 Soil Monitoring System
+### 4. Our Values Section
+- Technical Excellence
+- Customer Partnership
+- Market Intelligence
+- Localized Service
 
-### 5. Statistics
-- Partner farms count
-- Efficiency improvement data
-- Countries served
-- Customer satisfaction rate
-
-### 6. Footer
+### 5. Footer
 - Company information
 - Solution links
 - Contact details
+- Social media links
 
 ## Custom Theme
 
-The project uses Ant Design Vue's theme system. You can modify the theme configuration in `src/App.vue`:
+The project uses Ant Design Vue's theme system. Modify theme configuration in `src/App.vue`:
 
 ```typescript
 const themeConfig = computed(() => ({
   token: {
-    colorPrimary: '#2e7d32', // Primary color
-    colorSuccess: '#4caf50', // Success color
-    // ... other configurations
+    colorPrimary: '#2e7d32',
+    colorSuccess: '#4caf50',
   },
   components: {
     Button: {
       borderRadius: 6,
     },
-    // ... other component configurations
   },
 }))
 ```
