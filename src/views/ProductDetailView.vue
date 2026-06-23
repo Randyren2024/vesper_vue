@@ -111,6 +111,89 @@
             </a-button>
           </div>
 
+          <!-- E-commerce section: Price, Variants, Quantity, Add to Cart -->
+          <div v-if="product.price" class="ecommerce-section">
+            <!-- Price display -->
+            <div class="product-price-section">
+              <span class="price-current">{{ formatCents(currentPrice) }}</span>
+              <span v-if="product.compareAtPrice" class="price-compare">
+                {{ formatCents(product.compareAtPrice) }}
+              </span>
+              <span class="price-stock" :class="{ 'out-of-stock': !isPurchasable }">
+                <CheckCircleOutlined v-if="isPurchasable" style="color: #52c41a" />
+                <ExclamationCircleOutlined v-else style="color: #ff4d4f" />
+                {{ isPurchasable ? `${maxQuantity} in stock` : 'Out of Stock' }}
+              </span>
+            </div>
+
+            <!-- Out of stock message -->
+            <div v-if="!isPurchasable" class="out-of-stock-message">
+              <p>This product is currently unavailable. Please contact us for more information or to join the waitlist.</p>
+            </div>
+
+            <!-- Variant selector -->
+            <div v-if="product.variants && product.variants.length > 1" class="variant-selector">
+              <label class="variant-label">Configuration:</label>
+              <a-radio-group
+                v-model:value="selectedVariantId"
+                :default-value="product.variants[0].id"
+                button-style="solid"
+                size="large"
+              >
+                <a-radio-button
+                  v-for="variant in product.variants"
+                  :key="variant.id"
+                  :value="variant.id"
+                >
+                  {{ variant.name }}
+                  <span v-if="variant.priceModifier !== 0" class="variant-price-modifier">
+                    ({{ variant.priceModifier > 0 ? '+' : '' }}{{ formatCents(Math.abs(variant.priceModifier)) }})
+                  </span>
+                </a-radio-button>
+              </a-radio-group>
+            </div>
+
+            <!-- Quantity selector -->
+            <div v-if="isPurchasable" class="quantity-selector">
+              <label class="quantity-label">Quantity:</label>
+              <div class="quantity-controls">
+                <a-button
+                  size="large"
+                  :disabled="quantity <= 1"
+                  @click="decrementQuantity"
+                >
+                  <MinusOutlined />
+                </a-button>
+                <input
+                  type="number"
+                  v-model.number="quantity"
+                  class="quantity-input"
+                  :min="1"
+                  :max="maxQuantity"
+                />
+                <a-button
+                  size="large"
+                  :disabled="quantity >= maxQuantity"
+                  @click="incrementQuantity"
+                >
+                  <PlusOutlined />
+                </a-button>
+              </div>
+            </div>
+
+            <!-- Add to Cart -->
+            <a-button
+              type="primary"
+              block
+              size="large"
+              class="add-to-cart-btn"
+              :disabled="!isPurchasable"
+              @click="addToCart"
+            >
+              <ShoppingCartOutlined /> Add to Cart — {{ formatCents(currentPrice * quantity) }}
+            </a-button>
+          </div>
+
           <!-- Support links -->
           <div class="support-links">
             <a-button type="link" @click="scrollToSpecs">
@@ -753,13 +836,21 @@ import { useRoute } from 'vue-router'
 import {
   CheckCircleOutlined, MessageOutlined, TableOutlined, AppstoreOutlined,
   LinkedinOutlined, CalendarOutlined, PhoneOutlined, CustomerServiceOutlined,
-  TwitterOutlined, FacebookOutlined
+  TwitterOutlined, FacebookOutlined, ShoppingCartOutlined, MinusOutlined,
+  PlusOutlined, ExclamationCircleOutlined
 } from '@ant-design/icons-vue'
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
 import { products, getProductById, getProductsByCategory, type Product } from '../data/products'
+import { useCartStore } from '../stores/cart'
+import { useCurrency } from '../composables/useCurrency'
+import { useStock } from '../composables/useStock'
 
 const route = useRoute()
+const cartStore = useCartStore()
+const { formatCents } = useCurrency()
+const { isInStock, getAvailableStock } = useStock()
+
 const productAccordionKeys = ref<string[]>([])
 const activeFaqKeys = ref<number[]>([])
 const activeSpecsTab = ref<string>('')
@@ -768,6 +859,56 @@ const isMobile = ref(false)
 const windowWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1200)
 const galleryCarousel = ref<any>(null)
 const activeSlideIdx = ref(0)
+
+// E-commerce state
+const selectedVariantId = ref<string>('')
+const quantity = ref(1)
+
+const selectedVariant = computed(() =>
+  product.value?.variants?.find(v => v.id === selectedVariantId.value)
+)
+
+const currentPrice = computed(() => {
+  const base = product.value?.price ?? 0
+  const modifier = selectedVariant.value?.priceModifier ?? 0
+  return base + modifier
+})
+
+const maxQuantity = computed(() => {
+  const variant = selectedVariant.value
+  return getAvailableStock(product.value!, variant)
+})
+
+const isPurchasable = computed(() => {
+  if (!product.value) return false
+  const variant = selectedVariant.value
+  return isInStock(product.value, variant) && maxQuantity.value > 0
+})
+
+function decrementQuantity() {
+  if (quantity.value > 1) quantity.value--
+}
+
+function incrementQuantity() {
+  if (quantity.value < maxQuantity.value) quantity.value++
+}
+
+function addToCart() {
+  if (!product.value || !isPurchasable.value) return
+
+  cartStore.addItem({
+    productId: product.value.id,
+    variantId: selectedVariant.value?.id,
+    quantity: quantity.value,
+    unitPriceCents: currentPrice.value,
+    productName: selectedVariant.value
+      ? `${product.value.code} ${product.value.name} — ${selectedVariant.value.name}`
+      : `${product.value.code} ${product.value.name}`,
+    variantName: selectedVariant.value?.name,
+    imageUrl: product.value.image
+  })
+  cartStore.openDrawer()
+}
 
 function goToSlide(idx: number) {
   activeSlideIdx.value = idx
@@ -967,6 +1108,9 @@ function scrollToSpecs() {
 onMounted(() => {
   if (product.value?.specsGroups?.length) {
     activeSpecsTab.value = product.value.specsGroups[0].title
+  }
+  if (product.value?.variants?.length) {
+    selectedVariantId.value = product.value.variants[0].id
   }
   handleResize()
   window.addEventListener('scroll', handleScroll, { passive: true })
@@ -1381,6 +1525,113 @@ onUnmounted(() => {
   font-size: 15px;
   font-weight: 500;
   padding: 0;
+}
+
+/* E-commerce section */
+.ecommerce-section {
+  margin-top: 8px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 12px;
+  border: 1px solid #f0f0f0;
+}
+
+.product-price-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.price-current {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.price-compare {
+  font-size: 18px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.price-stock {
+  font-size: 13px;
+  color: #52c41a;
+  font-weight: 500;
+  margin-left: auto;
+}
+
+.price-stock.out-of-stock {
+  color: #ff4d4f;
+}
+
+.out-of-stock-message {
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #fff2f0;
+  border: 1px solid #ffccc7;
+  border-radius: 8px;
+  color: #ff4d4f;
+  font-size: 14px;
+}
+
+.out-of-stock-message p {
+  margin: 0;
+}
+
+.variant-selector {
+  margin-bottom: 16px;
+}
+
+.variant-label,
+.quantity-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.variant-price-modifier {
+  font-size: 12px;
+  color: #666;
+}
+
+.quantity-selector {
+  margin-bottom: 16px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quantity-input {
+  width: 64px;
+  height: 40px;
+  text-align: center;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  -moz-appearance: textfield;
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.add-to-cart-btn {
+  height: 48px;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 /* Learn More */

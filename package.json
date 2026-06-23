@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.0",
+    "@supabase/supabase-js": "^2.108.2",
     "@vueuse/motion": "^3.0.3",
     "ant-design-vue": "^4.0.0",
+    "pinia": "^3.0.4",
+    "pinia-plugin-persistedstate": "^4.7.1",
     "vue": "^3.4.0",
     "vue-router": "^4.2.0",
     "vue3-map-chart": "^0.2.0"

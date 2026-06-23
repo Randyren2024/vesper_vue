@@ -20,3 +20,7 @@ public/images/Taurus 80e*.png
 
 # Local Netlify folder
 .netlify
+
+# Environment variables
+.env
+.env.local

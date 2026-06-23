@@ -24,6 +24,45 @@ export interface Product {
   whyReasons?: string[]
   learnMoreCards?: { title: string; description: string; image: string }[]
   isVesper?: boolean
+
+  // Commerce fields
+  /** Price in cents (分) to avoid floating-point issues. E.g., 19990 = $199.90 */
+  price?: number
+  /** Original/compare-at price in cents (for showing discounts) */
+  compareAtPrice?: number
+  /** Stock keeping unit for inventory tracking */
+  sku?: string
+  /** Current stock count (replaces boolean inStock for commerce) */
+  stockCount?: number
+  /** Product variants (e.g., different configurations/kits) */
+  variants?: ProductVariant[]
+  /** Weight in grams for shipping calculation */
+  weightGrams?: number
+  /** Dimensions in centimeters for shipping calculation */
+  dimensionsCm?: { length: number; width: number; height: number }
+  /** Shipping configuration overrides */
+  shipping?: {
+    /** Free shipping threshold in cents (e.g., 50000 = $500) */
+    freeOver?: number
+    /** Flat shipping rate in cents (e.g., 2500 = $25) */
+    flatRate?: number
+  }
+}
+
+/**
+ * Product variant (e.g., different configurations/kits).
+ */
+export interface ProductVariant {
+  id: string
+  name: string
+  /** Price modifier in cents (added to base product price) */
+  priceModifier: number
+  /** Stock count for this variant */
+  stockCount: number
+  /** Variant-specific features */
+  features?: string[]
+  /** Variant-specific image */
+  image?: string
 }
 
 export const categories = [
@@ -217,7 +256,15 @@ export const products: Product[] = [
     inStock: true,
     isBestSeller: true,
     isNew: true,
-    isVesper: true
+    isVesper: true,
+
+    // Commerce fields
+    price: 249900, // $2,499.00
+    sku: 'VS-S1-4WD-50',
+    stockCount: 25,
+    weightGrams: 45000,
+    dimensionsCm: { length: 120, width: 75, height: 55 },
+    shipping: { freeOver: 200000, flatRate: 15000 }
   },
   {
     id: 'vesper-s1-4wd-40',
@@ -367,7 +414,15 @@ export const products: Product[] = [
     inStock: true,
     isBestSeller: true,
     isNew: true,
-    isVesper: true
+    isVesper: true,
+
+    // Commerce fields
+    price: 199900, // $1,999.00
+    sku: 'VS-S1-4WD-40',
+    stockCount: 30,
+    weightGrams: 42000,
+    dimensionsCm: { length: 115, width: 72, height: 53 },
+    shipping: { freeOver: 200000, flatRate: 15000 }
   },
   // Precision Agriculture
   // =====================
@@ -489,7 +544,15 @@ export const products: Product[] = [
     image: '/images/products/af718-main.png',
     inStock: true,
     isBestSeller: true,
-    isNew: true
+    isNew: true,
+
+    // Commerce fields
+    price: 349900, // $3,499.00
+    sku: 'VS-AF718',
+    stockCount: 15,
+    weightGrams: 8000,
+    dimensionsCm: { length: 30, width: 20, height: 10 },
+    shipping: { freeOver: 200000, flatRate: 10000 }
   },
   {
     id: 'af305',
@@ -580,7 +643,15 @@ export const products: Product[] = [
     image: '/images/products/af305-main.png',
     inStock: true,
     isBestSeller: true,
-    isNew: false
+    isNew: false,
+
+    // Commerce fields
+    price: 219900, // $2,199.00
+    sku: 'VS-AF305',
+    stockCount: 20,
+    weightGrams: 7500,
+    dimensionsCm: { length: 28, width: 18, height: 9 },
+    shipping: { freeOver: 200000, flatRate: 10000 }
   },
   {
     id: 'isobus',
@@ -691,7 +762,15 @@ export const products: Product[] = [
     image: '/images/products/isobus-main.png',
     inStock: true,
     isBestSeller: false,
-    isNew: false
+    isNew: false,
+
+    // Commerce fields
+    price: 129900, // $1,299.00
+    sku: 'VS-ISOBUS',
+    stockCount: 18,
+    weightGrams: 5000,
+    dimensionsCm: { length: 35, width: 25, height: 8 },
+    shipping: { freeOver: 100000, flatRate: 8000 }
   },
   {
     id: 'vs100',
@@ -800,7 +879,15 @@ export const products: Product[] = [
     image: '/images/products/vs100-main.png',
     inStock: true,
     isBestSeller: true,
-    isNew: false
+    isNew: false,
+
+    // Commerce fields
+    price: 499900, // $4,999.00
+    sku: 'VS-VS100',
+    stockCount: 12,
+    weightGrams: 12000,
+    dimensionsCm: { length: 40, width: 30, height: 15 },
+    shipping: { freeOver: 300000, flatRate: 20000 }
   },
 
   // =====================
@@ -933,7 +1020,15 @@ export const products: Product[] = [
     image: '/images/products/w20-main.png',
     inStock: true,
     isBestSeller: false,
-    isNew: false
+    isNew: false,
+
+    // Commerce fields
+    price: 899900, // $8,999.00
+    sku: 'VS-W20',
+    stockCount: 8,
+    weightGrams: 25000,
+    dimensionsCm: { length: 60, width: 40, height: 30 },
+    shipping: { freeOver: 500000, flatRate: 30000 }
   },
 
   // =====================
@@ -1020,7 +1115,15 @@ export const products: Product[] = [
     image: '/images/products/aries300n-main.png',
     inStock: true,
     isBestSeller: true,
-    isNew: false
+    isNew: false,
+
+    // Commerce fields
+    price: 599900, // $5,999.00
+    sku: 'VS-ARIES300N',
+    stockCount: 10,
+    weightGrams: 35000,
+    dimensionsCm: { length: 90, width: 70, height: 50 },
+    shipping: { freeOver: 500000, flatRate: 25000 }
   },
   {
     id: 'taurus80e',
@@ -1053,7 +1156,15 @@ export const products: Product[] = [
     image: '/images/products/80e-1.webp',
     inStock: true,
     isBestSeller: true,
-    isNew: false
+    isNew: false,
+
+    // Commerce fields
+    price: 399900, // $3,999.00
+    sku: 'VS-TAURUS80E',
+    stockCount: 14,
+    weightGrams: 32000,
+    dimensionsCm: { length: 85, width: 65, height: 45 },
+    shipping: { freeOver: 200000, flatRate: 25000 }
   },
 
   // =====================
@@ -1129,7 +1240,15 @@ export const products: Product[] = [
     image: '/images/products/egs101-main.png',
     inStock: true,
     isBestSeller: false,
-    isNew: false
+    isNew: false,
+
+    // Commerce fields
+    price: 249900, // $2,499.00
+    sku: 'VS-EGS101',
+    stockCount: 16,
+    weightGrams: 28000,
+    dimensionsCm: { length: 80, width: 60, height: 40 },
+    shipping: { freeOver: 200000, flatRate: 20000 }
   }
 ]
 
